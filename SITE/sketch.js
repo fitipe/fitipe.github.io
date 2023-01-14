@@ -20,7 +20,7 @@ let ss;
 
 let sqr;
 
-invrand = Math.floor(fxrand()*100);
+invrand = Math.floor(Math.random()*100);
 
 let lista = ['./0.mp4', './1.mp4', './2.mp4', './3.mp4', './4.mp4','./5.mp4', './6.mp4', './7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4','./15.mp4', './16.mp4', './17.mp4', './18.mp4', './19.mp4','./20.mp4']
 
@@ -51,23 +51,23 @@ if (invrand < 15){
 }
 
 
-rand1 = Math.floor(fxrand()*lista.length);
+rand1 = Math.floor(Math.random()*lista.length);
 vid1num = lista[rand1];
 lista.splice(rand1,1)
 
-rand2 = Math.floor(fxrand()*lista.length);
+rand2 = Math.floor(Math.random()*lista.length);
 vid2num = lista[rand2];
 lista.splice(rand2,1)
 
-rand3 = Math.floor(fxrand()*lista.length);
+rand3 = Math.floor(Math.random()*lista.length);
 vid3num = lista[rand3];
 lista.splice(rand3,1)
 
-rand4 = Math.floor(fxrand()*lista.length);
+rand4 = Math.floor(Math.random()*lista.length);
 vid4num = lista[rand4];
 lista.splice(rand4,1)
 
-rand5 = Math.floor(fxrand()*lista.length);
+rand5 = Math.floor(Math.random()*lista.length);
 vid5num = lista[rand5];
 lista.splice(rand5,1)
 
@@ -332,19 +332,19 @@ function draw() {
 
       let lista = ['./0.mp4', './1.mp4', './2.mp4', './3.mp4', './4.mp4','./5.mp4', './6.mp4', './7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4','./15.mp4', './16.mp4', './17.mp4', './18.mp4', './19.mp4','./20.mp4']
 
-      rand1 = Math.floor(fxrand()*lista.length);
+      rand1 = Math.floor(Math.random()*lista.length);
       vid1num = lista[rand1];
       lista.splice(rand1,1)
 
-      rand2 = Math.floor(fxrand()*lista.length);
+      rand2 = Math.floor(Math.random()*lista.length);
       vid2num = lista[rand2];
       lista.splice(rand2,1)
 
-      rand3 = Math.floor(fxrand()*lista.length);
+      rand3 = Math.floor(Math.random()*lista.length);
       vid3num = lista[rand3];
       lista.splice(rand3,1)
 
-      rand4 = Math.floor(fxrand()*lista.length);
+      rand4 = Math.floor(Math.random()*lista.length);
       vid4num = lista[rand4];
       lista.splice(rand4,1)
 
