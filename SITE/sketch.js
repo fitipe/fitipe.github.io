@@ -77,6 +77,10 @@ function draw() {
 		vid4num = lista[rand4];
 		lista.splice(rand4,1)
 		
+		rand5 = Math.floor(Math.random()*lista.length);
+  	vid5num = lista[rand5];
+  	lista.splice(rand5,1)
+		
 		vid1 = createVideo(
     	[vid1num],
     	vidLoad
