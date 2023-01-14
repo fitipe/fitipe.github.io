@@ -13,15 +13,16 @@ let vid5num;
 let invrand;
 let invertido;
 let invnum;
+let invnumlist;
 
 let lista = [];
 
 let sqr;
 
 function setup() {
-	sqr = Math.min(windowWidth, windowHeight);
+  sqr = Math.min(windowWidth, windowHeight);
   createCanvas(sqr, sqr);
-	frameRate(23.98);
+  frameRate(23.98);
 }
 
 /// D R A W
@@ -115,7 +116,7 @@ function draw() {
       );
     } else {
 			
-			let lista = ['./1.mp4', './3.mp4','./5.mp4', './6.mp4', './7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4']
+      let lista = ['./1.mp4', './3.mp4','./5.mp4', './6.mp4', './7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4']
       
       rand2 = Math.floor(Math.random()*lista.length);
       vid2num = lista[rand2];
@@ -248,7 +249,7 @@ function draw() {
 	
 	
 	
-	if (x == 480){
+  if (x == 480){
 
     let lista = ['./1.mp4', './3.mp4','./5.mp4', './6.mp4', './7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4']
 
@@ -261,10 +262,10 @@ function draw() {
       vidLoad
     );
 
-		if (y==0){
-			y += 1;
-		}
-	}
+    if (y==0){
+      y += 1;
+    }
+  }
   
 	
   if (x > 470 && x < 520){
