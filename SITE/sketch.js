@@ -32,79 +32,79 @@ function draw() {
 
   if ( x == 0 ){
 		
-		let lista = ['./1.mp4', './3.mp4','./5.mp4', './6.mp4', './7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4']
+    let lista = ['./1.mp4', './3.mp4','./5.mp4', './6.mp4', './7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4']
 
-		invrand = Math.floor(Math.random()*100);
+    invrand = Math.floor(Math.random()*100);
 
-		invnumlist = ['1st','2nd','3rd','4rth','5th'];
+    invnumlist = ['1st','2nd','3rd','4rth','5th'];
 
-		if (invrand < 15){
-		  invertido = '1st';
-		  invnum = invnumlist[0];
-		} else if (invrand < 30){
-		  invertido = '2nd';
-		  invnum = invnumlist[1];
-		} else if (invrand < 45){
-		  invertido = '3rd';
-		  invnum = invnumlist[2];
-		} else if (invrand < 60){  
-		  invertido = '4rth';
-		  invnum = invnumlist[3];
-		} else if (invrand < 75){  
-		  invertido = '5th';
-		  invnum = invnumlist[4];
-		} else if (invrand < 85){  
-		  invertido = 'variable (super rare)';
-		  invnum = '';
-		} else {
-		  invertido = 'none (rare)';
-		}
+    if (invrand < 15){
+      invertido = '1st';
+      invnum = invnumlist[0];
+    } else if (invrand < 30){
+      invertido = '2nd';
+      invnum = invnumlist[1];
+    } else if (invrand < 45){
+      invertido = '3rd';
+      invnum = invnumlist[2];
+    } else if (invrand < 60){  
+      invertido = '4rth';
+      invnum = invnumlist[3];
+    } else if (invrand < 75){  
+      invertido = '5th';
+      invnum = invnumlist[4];
+    } else if (invrand < 85){  
+      invertido = 'variable (super rare)';
+      invnum = '';
+    } else {
+      invertido = 'none (rare)';
+    }
 
 
-		rand1 = Math.floor(Math.random()*lista.length);
-		vid1num = lista[rand1];
-		lista.splice(rand1,1)
+    rand1 = Math.floor(Math.random()*lista.length);
+    vid1num = lista[rand1];
+    lista.splice(rand1,1)
 		
-		rand2 = Math.floor(Math.random()*lista.length);
-		vid2num = lista[rand2];
-		lista.splice(rand2,1)
+    rand2 = Math.floor(Math.random()*lista.length);
+    vid2num = lista[rand2];
+    lista.splice(rand2,1)
 		
-		rand3 = Math.floor(Math.random()*lista.length);
-		vid3num = lista[rand3];
-		lista.splice(rand3,1)
-		
-		rand4 = Math.floor(Math.random()*lista.length);
-		vid4num = lista[rand4];
-		lista.splice(rand4,1)
-		
-		rand5 = Math.floor(Math.random()*lista.length);
-  	vid5num = lista[rand5];
-  	lista.splice(rand5,1)
-		
-		vid1 = createVideo(
-    	[vid1num],
-    	vidLoad
-  	);
-
-  	vid2 = createVideo(
-  	  [vid2num],
-  	  vidLoad
-  	);
+    rand3 = Math.floor(Math.random()*lista.length);
+    vid3num = lista[rand3];
+    lista.splice(rand3,1)
 	
-  	vid3 = createVideo(
-  	  [vid3num],
-  	  vidLoad
-  	);
+    rand4 = Math.floor(Math.random()*lista.length);
+    vid4num = lista[rand4];
+    lista.splice(rand4,1)
+		
+    rand5 = Math.floor(Math.random()*lista.length);
+    vid5num = lista[rand5];
+    lista.splice(rand5,1)
+		
+    vid1 = createVideo(
+      [vid1num],
+      vidLoad
+    );
+
+    vid2 = createVideo(
+      [vid2num],
+      vidLoad
+    );
 	
-  	vid4 = createVideo(
-  	  [vid4num],
-  	  vidLoad
-  	);
+    vid3 = createVideo(
+      [vid3num],
+      vidLoad
+    );
 	
-  	vid5 = createVideo(
-  	  [vid5num],
-  	  vidLoad
-  	);
+    vid4 = createVideo(
+      [vid4num],
+      vidLoad
+    );
+	
+    vid5 = createVideo(
+      [vid5num],
+      vidLoad
+    );
 			
     if (invertido == 'variable (super rare)'){
       invnum = random(invnumlist);
