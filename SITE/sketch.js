@@ -91,27 +91,27 @@ function draw() {
       
       vid1 = createVideo(
         [vid1num],
-        vidLoad
+        vidLoad1
       );
   
       vid2 = createVideo(
         [vid2num],
-        vidLoad
+        vidLoad2
       );
     
       vid3 = createVideo(
         [vid3num],
-        vidLoad
+        vidLoad3
       );
     
       vid4 = createVideo(
         [vid4num],
-        vidLoad
+        vidLoad4
       );
     
       vid5 = createVideo(
         [vid5num],
-        vidLoad
+        vidLoad5
       );
 
     } else {
@@ -138,25 +138,27 @@ function draw() {
   
       vid2 = createVideo(
         [vid2num],
-        vidLoad
+        vidLoad2
       );
     
       vid3 = createVideo(
         [vid3num],
-        vidLoad
+        vidLoad3
       );
     
       vid4 = createVideo(
         [vid4num],
-        vidLoad
+        vidLoad4
       );
     
       vid5 = createVideo(
         [vid5num],
-        vidLoad
+        vidLoad5
       );
     }
   }	
+
+  clear();
 	
   x = x + 1;
 
@@ -261,7 +263,7 @@ function draw() {
 
     vid1 = createVideo(
       [vid1num],
-      vidLoad
+      vidLoad1
     );
 
     if (y==0){
@@ -394,40 +396,41 @@ function draw() {
 }
 
 
-function vidLoad() {
-
+function vidLoad1() {
   vid1.loop();
   vid1.speed(1);
   vid1.volume(0);
   vid1.hide();
   vid1.center();
-
+}
+function vidLoad2() {
   vid2.loop();
   vid2.speed(1);
   vid2.volume(0);
   vid2.hide();
   vid2.center();
-
+}
+function vidLoad3() {
   vid3.loop();
   vid3.speed(1);
   vid3.volume(0);
   vid3.hide();
   vid3.center();
-
+}
+function vidLoad4() {
   vid4.loop();
   vid4.speed(1);
   vid4.volume(0);
   vid4.hide();
   vid4.center();
-
+}
+function vidLoad5() {
   vid5.loop();
   vid5.speed(1);
   vid5.volume(0);
   vid5.hide();
   vid5.center();
-
 }
-
 
 function invert (){
   drawingContext.filter = 'invert(100%)'
@@ -459,3 +462,4 @@ function video4() {
 function video5() {
   image(vid5,0,0,sqr,sqr)
 }
+
