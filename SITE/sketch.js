@@ -408,7 +408,6 @@ function vidLoad1() {
   vid1.loop();
   vid1.speed(1);
   vid1.volume(0);
-  vid1.mute();
   vid1.hide();
   vid1.center();
   vid1.onloadedmetadata = function() {
@@ -419,7 +418,6 @@ function vidLoad2() {
   vid2.loop();
   vid2.speed(1);
   vid2.volume(0);
-  vid2.mute();
   vid2.hide();
   vid2.center();
   vid2.onloadedmetadata = function() {
@@ -431,7 +429,6 @@ function vidLoad3() {
   vid3.loop();
   vid3.speed(1);
   vid3.volume(0);
-  vid3.mute();
   vid3.hide();
   vid3.center();
   vid3.onloadedmetadata = function() {
@@ -443,7 +440,6 @@ function vidLoad4() {
   vid4.loop();
   vid4.speed(1);
   vid4.volume(0);
-  vid4.mute();
   vid4.hide();
   vid4.center();
   vid4.onloadedmetadata = function() {
@@ -455,7 +451,6 @@ function vidLoad5() {
   vid5.loop();
   vid5.speed(1);
   vid5.volume(0);
-  vid5.mute();
   vid5.hide();
   vid5.center();
   vid5.onloadedmetadata = function() {
