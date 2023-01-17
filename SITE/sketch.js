@@ -53,17 +53,17 @@ function draw() {
       
       vid1 = createVideo(
         [vid1num],
-        vidLoad1
+        vidLoad
       );
   
       vid2 = createVideo(
         [vid2num],
-        vidLoad2
+        vidLoad
       );
     
       vid3 = createVideo(
         [vid3num],
-        vidLoad3
+        vidLoad
       );
     }
   }
@@ -108,12 +108,12 @@ function draw() {
   
       vid2 = createVideo(
         [vid2num],
-        vidLoad2
+        vidLoad
       );
     
       vid3 = createVideo(
         [vid3num],
-        vidLoad3
+        vidLoad
       );
     }
   }
@@ -218,7 +218,7 @@ function draw() {
 
     vid1 = createVideo(
       [vid1num],
-      vidLoad1
+      vidLoad
     );
 
     if (y==0){
@@ -272,27 +272,24 @@ function draw() {
 }
 
 
-function vidLoad1() {
+function vidLoad() {
   vid1.loop();
   vid1.speed(1);
   vid1.volume(0);
-  vid1.hide();
   vid1.center();
-}
-function vidLoad2() {
+  vid1.hide();
+
   vid2.loop();
   vid2.speed(1);
   vid2.volume(0);
-  vid2.hide();
   vid2.center();
-}
+  vid2.hide();
 
-function vidLoad3() {
   vid3.loop();
   vid3.speed(1);
   vid3.volume(0);
-  vid3.hide();
   vid3.center();
+  vid3.hide();
 }
 
 function invert (){
