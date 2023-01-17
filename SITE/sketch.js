@@ -393,13 +393,6 @@ function draw() {
   if (x >= 900){
     x = 0;
   }
-
-  image(vid1,0,0,sqr,sqr);
-  image(vid2,0,0,sqr,sqr);
-  image(vid3,0,0,sqr,sqr);
-  image(vid4,0,0,sqr,sqr);
-  image(vid5,0,0,sqr,sqr);
-
 }
 
 
