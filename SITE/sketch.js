@@ -311,14 +311,16 @@ function vidLoad() {
   vid3.hide();
 }
 
-function mouseClicked() {
+function mouseClicked(event) {
+	  event.preventDefault();
 	  vid1.loop();
 	  vid2.loop();
 	  vid3.loop();	
 }
 
 
-function touchStarted() {
+function touchStarted(event) {
+	  event.preventDefault();
 	  vid1.loop();
 	  vid2.loop();
 	  vid3.loop();	
