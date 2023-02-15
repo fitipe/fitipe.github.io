@@ -24,7 +24,7 @@ let vid3;
 function setup() {
 	sqr = Math.min(windowWidth, windowHeight);
   createCanvas(sqr, sqr);
-	frameRate(23.98);
+requestAnimationFrame;
 
 }
 
@@ -37,43 +37,7 @@ function draw() {
   if ( x == 0 ){
     
     if ( y == 0 ){
-
-      invrand1 = Math.floor(Math.random()*100);
-      invrand2 = Math.floor(Math.random()*100);
-      invrand3 = Math.floor(Math.random()*100);
-
-      let lista = ['./0.mp4','./1.mp4','./2.mp4','./3.mp4','./4.mp4','./5.mp4','./6.mp4','./7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4','./15.mp4','./16.mp4','./17.mp4', './18.mp4','./19.mp4', './20.mp4', './21.mp4', './22.mp4', './23.mp4', './24.mp4', './25.mp4', './26.mp4', './27.mp4', './28.mp4','./29.mp4', './31.mp4', './32.mp4','./33.mp4','./34.mp4','./35.mp4', './36.mp4','./37.mp4', './38.mp4', './39.mp4', './40.mp4', './41.mp4', './42.mp4','./43.mp4']
-  
-      rand1 = Math.floor(Math.random()*lista.length);
-      vid1num = lista[rand1];
-      lista.splice(rand1,1)
-      
-      rand2 = Math.floor(Math.random()*lista.length);
-      vid2num = lista[rand2];
-      lista.splice(rand2,1)
-      
-      rand3 = Math.floor(Math.random()*lista.length);
-      vid3num = lista[rand3];
-      lista.splice(rand3,1)
-      
-      vid1 = createVideo(
-        [vid1num],
-        vidLoad,
-      );
-	    
-      vid2 = createVideo(
-        [vid2num],
-        vidLoad,
-      );
-	    
-      vid3 = createVideo(
-        [vid3num],
-        vidLoad,
-      );	    
-     
-      vid1.hide();
-      vid2.hide();
-      vid3.hide();
+	    carrega3();
     }
   }
 
@@ -243,6 +207,50 @@ function draw() {
     x = 0;
   }
 }
+
+
+
+function carrega3(){
+	
+      invrand1 = Math.floor(Math.random()*100);
+      invrand2 = Math.floor(Math.random()*100);
+      invrand3 = Math.floor(Math.random()*100);
+
+      let lista = ['./0.mp4','./1.mp4','./2.mp4','./3.mp4','./4.mp4','./5.mp4','./6.mp4','./7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4','./15.mp4','./16.mp4','./17.mp4', './18.mp4','./19.mp4', './20.mp4', './21.mp4', './22.mp4', './23.mp4', './24.mp4', './25.mp4', './26.mp4', './27.mp4', './28.mp4','./29.mp4', './31.mp4', './32.mp4','./33.mp4','./34.mp4','./35.mp4', './36.mp4','./37.mp4', './38.mp4', './39.mp4', './40.mp4', './41.mp4', './42.mp4','./43.mp4']
+  
+      rand1 = Math.floor(Math.random()*lista.length);
+      vid1num = lista[rand1];
+      lista.splice(rand1,1)
+      
+      rand2 = Math.floor(Math.random()*lista.length);
+      vid2num = lista[rand2];
+      lista.splice(rand2,1)
+      
+      rand3 = Math.floor(Math.random()*lista.length);
+      vid3num = lista[rand3];
+      lista.splice(rand3,1)
+      
+      vid1 = createVideo(
+        [vid1num],
+        vidLoad,
+      );
+	    
+      vid2 = createVideo(
+        [vid2num],
+        vidLoad,
+      );
+	    
+      vid3 = createVideo(
+        [vid3num],
+        vidLoad,
+      );	    
+     
+      vid1.hide();
+      vid2.hide();
+      vid3.hide();	
+	
+}
+
 
 
 function carrega1(){
