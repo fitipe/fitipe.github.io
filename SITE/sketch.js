@@ -59,31 +59,16 @@ function draw() {
       vid1 = createVideo(
         [vid1num],
         vidLoad,
-        function() {
-          this.attribute('playsinline', '');
-          this.attribute('muted', '');
-          this.hide();
-        }
       );
 	    
       vid2 = createVideo(
         [vid2num],
         vidLoad,
-        function() {
-          this.attribute('playsinline', '');
-          this.attribute('muted', '');
-          this.hide();
-        }
       );
 	    
       vid3 = createVideo(
         [vid3num],
         vidLoad,
-        function() {
-          this.attribute('playsinline', '');
-          this.attribute('muted', '');
-          this.hide();
-        }
       );	    
      
       vid1.hide();
@@ -282,21 +267,11 @@ function carrega1(){
       vid2 = createVideo(
         [vid2num],
         vidLoad,
-        function() {
-          this.attribute('playsinline', '');
-          this.attribute('muted', '');
-          this.hide();
-        }
       );
 	    
       vid3 = createVideo(
         [vid3num],
         vidLoad,
-        function() {
-          this.attribute('playsinline', '');
-          this.attribute('muted', '');
-          this.hide();
-        }
       );	    
 
   vid2.hide();
@@ -317,13 +292,7 @@ function carrega2(){
 	
       vid1 = createVideo(
         [vid1num],
-        vidLoad,
-        function() {
-          this.attribute('playsinline', '');
-          this.attribute('muted', '');
-          this.hide();
-        }	    
-
+        vidLoad,	    
   );
   vid1.hide();
 }
@@ -334,11 +303,8 @@ function vidLoad() {
     // Mobile device detected
     // Set videos to start paused and require a click
     vid1.pause();
-    vid1.mouseClicked(loop);
     vid2.pause();
-    vid2.mouseClicked(loop);
     vid3.pause();
-    vid3.mouseClicked(loop);
   } else {
     // Desktop device detected
     // Set videos to start automatically
@@ -350,15 +316,26 @@ function vidLoad() {
   vid1.speed(1);
   vid1.center();
   vid1.hide();
+  vid1.attribute('playsinline', '');
+  vid1.attribute('muted', '');
 
   vid2.speed(1);
   vid2.center();
   vid2.hide();
-
+  vid2.attribute('playsinline', '');
+  vid2.attribute('muted', '');
 
   vid3.speed(1);
   vid3.center();
   vid3.hide();
+  vid3.attribute('playsinline', '');
+  vid3.attribute('muted', '');
+}
+
+function touchStarted() {
+  vid1.loop();
+  vid2.loop();
+  vid3.loop();	
 }
 
 
