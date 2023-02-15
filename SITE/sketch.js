@@ -315,14 +315,31 @@ function playVideo() {
 }
 
 function vidLoad() {
-  vid1 = createVideo("video1.mp4", vidLoadCallback);
-  vid2 = createVideo("video2.mp4", vidLoadCallback);
-  vid3 = createVideo("video3.mp4", vidLoadCallback);
-  
+  vid1.pause();
+  vid1.speed(1);
+  vid1.volume(0);
+  vid1.center();
   vid1.hide();
+  vid1.attribute('playsInline', '');
+  vid1.attribute('webkit-playsinline', '');
+
+  vid2.pause();
+  vid2.speed(1);
+  vid2.volume(0);
+  vid2.center();
   vid2.hide();
+  vid2.attribute('playsInline', '');
+  vid2.attribute('webkit-playsinline', '');
+
+  vid3.pause();
+  vid3.speed(1);
+  vid3.volume(0);
+  vid3.center();
   vid3.hide();
+  vid3.attribute('playsInline', '');
+  vid3.attribute('webkit-playsinline', '');
 }
+
 
 function vidLoadCallback() {
   this.speed(1);
