@@ -47,18 +47,23 @@ function draw() {
           
           if ( y == 0 ){
               carrega3();
+	      vid1.pause();
+              vid2.pause();
+              vid3.pause();
           }
         }
         
-        vid1.pause();
-        vid2.pause();
-        vid3.pause();
+
 
         if (touched) {
       
         clear();
           
         x = x + 1;
+		
+	vid1.loop();
+        vid2.loop();
+        vid3.loop();
       
       
         if (x < 170){
@@ -567,15 +572,15 @@ function desinvert(){
 }
 
 function video1() {
-  image(vid1,0,0,sqr,sqr)
+  drawImage(vid1,0,0,sqr,sqr)
 }
 
 
 function video2() {
-  image(vid2,0,0,sqr,sqr)
+  drawImage(vid2,0,0,sqr,sqr)
 }
 
 
 function video3() {
-  image(vid3,0,0,sqr,sqr)
+  drawImage(vid3,0,0,sqr,sqr)
 }
