@@ -21,6 +21,8 @@ let vid1;
 let vid2;
 let vid3;
 
+let touched = false;
+
 function setup() {
   sqr = Math.min(windowWidth, windowHeight);
   createCanvas(sqr, sqr);
