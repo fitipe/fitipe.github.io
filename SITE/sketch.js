@@ -572,15 +572,18 @@ function desinvert(){
 }
 
 function video1() {
-  drawImage(vid1,0,0,sqr,sqr)
+  frame1 = vid1.get();
+  image(frame1,0,0,sqr,sqr)
 }
 
 
 function video2() {
-  drawImage(vid2,0,0,sqr,sqr)
+  frame2 = vid2.get();
+  image(frame2,0,0,sqr,sqr)
 }
 
 
 function video3() {
-  drawImage(vid3,0,0,sqr,sqr)
+  frame3 = vid3.get();
+  image(frame3,0,0,sqr,sqr)
 }
