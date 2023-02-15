@@ -21,6 +21,25 @@ function setup() {
 	sqr = Math.min(windowWidth, windowHeight);
   createCanvas(sqr, sqr);
 	frameRate(23.98);
+	
+	
+	
+	  vidLoad();
+
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Mobile device detected
+    // Set videos to start paused and require a click
+    vid1.mouseClicked(playVideo);
+    vid2.mouseClicked(playVideo);
+    vid3.mouseClicked(playVideo);
+  } else {
+    // Desktop device detected
+    // Set videos to start automatically
+    vid1.loop();
+    vid2.loop();
+    vid3.loop();
+  }
+
 }
 
 /// D R A W
@@ -291,42 +310,26 @@ function carrega2(){
   vid1.hide();
 }
 
+function playVideo() {
+  this.loop();
+}
+
 function vidLoad() {
-  vid1.pause();
-  vid1.speed(1);
-  vid1.volume(0);
-  vid1.center();
+  vid1 = createVideo("video1.mp4", vidLoadCallback);
+  vid2 = createVideo("video2.mp4", vidLoadCallback);
+  vid3 = createVideo("video3.mp4", vidLoadCallback);
+  
   vid1.hide();
-  vid1.attribute('playsInline', '');
-  vid1.attribute('webkit-playsinline', '');
-
-  vid2.pause();
-  vid2.speed(1);
-  vid2.volume(0);
-  vid2.center();
   vid2.hide();
-  vid2.attribute('playsInline', '');
-  vid2.attribute('webkit-playsinline', '');
-
-  vid3.pause();
-  vid3.speed(1);
-  vid3.volume(0);
-  vid3.center();
   vid3.hide();
-  vid3.attribute('playsInline', '');
-  vid3.attribute('webkit-playsinline', '');
 }
 
-function mouseClicked() {
-  vid1.loop();
-  vid2.loop();
-  vid3.loop();	
-}
-
-function touchStarted() {
-  vid1.loop();
-  vid2.loop();
-  vid3.loop();	
+function vidLoadCallback() {
+  this.speed(1);
+  this.volume(0);
+  this.center();
+  this.attribute("playsInline", "");
+  this.attribute("webkit-playsinline", "");
 }
 
 function invert (){
