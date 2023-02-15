@@ -17,6 +17,10 @@ let sqr;
 let x = 0;
 let y = 0;
 
+let vid1;
+let vid2;
+let vid3;
+
 function setup() {
 	sqr = Math.min(windowWidth, windowHeight);
   createCanvas(sqr, sqr);
