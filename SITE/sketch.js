@@ -22,15 +22,207 @@ let vid2;
 let vid3;
 
 function setup() {
-	sqr = Math.min(windowWidth, windowHeight);
+  sqr = Math.min(windowWidth, windowHeight);
   createCanvas(sqr, sqr);
-requestAnimationFrame;
-
+  frameRate(24);
 }
 
 /// D R A W
 
 function draw() {
+
+
+
+
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+   
+
+        background("white");
+
+
+        if ( x == 0 ){
+          
+          if ( y == 0 ){
+              carrega3();
+          }
+        }
+        
+        vid1.pause();
+        vid2.pause();
+        vid3.pause();
+
+        if (touched) {
+      
+        clear();
+          
+        x = x + 1;
+      
+      
+        if (x < 170){
+          if (invrand1 < 30){
+            invert();
+          } else {
+            desinvert();
+          }
+          video1();
+        }
+      
+      
+      
+        if (x == 30){
+      
+          if (y == 1){
+      
+            carrega1();
+      
+          }
+        }
+      
+      
+      
+        if (x > 120 && x < 170){
+          if (x % 13 == 0) {
+            video2();
+            if (invrand2 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+        
+          if (x % 5 == 0) {
+            video2();
+            if (invrand2 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+        
+          if (x % 2 == 0) {
+            video2();
+            if (invrand2 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+        }  
+      
+        if (x > 170 && x < 350){
+          video2();
+          if (x < 350){
+            if (invrand2 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+        } 
+      
+      
+        if (x > 300 && x < 350){
+          if (x % 11 == 0) {
+            video3();
+            if (invrand3 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+        
+          if (x % 5 == 0) {
+            video3();
+            if (invrand3 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+        
+          if (x % 2 == 0) {
+            video3();
+            if (invrand3 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+        }
+        
+      
+        if (x == 330){
+      
+      
+        }
+      
+      
+        if (x > 350 && x < 520){
+          video3();
+          if (invrand3 < 30){
+            invert();
+          } else {
+            desinvert();
+          }
+        }
+      
+        if ( x == 360 ){
+      
+          carrega2();
+      
+          if (y==0){
+              y += 1;
+          }
+        }
+          
+      
+        if (x > 475 && x < 520){
+      
+          if (x % 11 == 0) {
+            video1();
+            if (invrand1 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+          
+          if (x % 5 == 0) {
+            video1();
+            if (invrand1 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+          
+          if (x % 2 == 0) {
+            video1();
+            if (invrand1 < 30){
+              invert();
+            } else {
+              desinvert();
+            }
+          }
+        }
+        
+        if (x > 520){
+          video1();
+          if (invrand1 < 30){
+            invert();
+          } else {
+            desinvert();
+          }
+        }
+      
+        if (x >= 530){
+          x = 0;
+        }
+    }
+
+
+      } else {
 
   background("white");
 
@@ -208,6 +400,7 @@ function draw() {
   }
 }
 
+}
 
 
 function carrega3(){
@@ -307,19 +500,10 @@ function carrega2(){
 
 function vidLoad() {
 
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    // Mobile device detected
-    // Set videos to start paused and require a click
-    vid1.pause();
-    vid2.pause();
-    vid3.pause();
-  } else {
-    // Desktop device detected
-    // Set videos to start automatically
-    vid1.loop();
-    vid2.loop();
-    vid3.loop();
-  }
+  vid1.loop();
+  vid2.loop();
+  vid3.loop();
+  
 
   vid1.speed(1);
   vid1.center();
@@ -347,6 +531,7 @@ function touchStarted() {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     // Mobile device detected
     // Start videos on touch
+    touched = true;
     vid1.loop();
     vid2.loop();
     vid3.loop();
