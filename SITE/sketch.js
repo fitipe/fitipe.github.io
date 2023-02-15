@@ -297,33 +297,36 @@ function vidLoad() {
   vid1.volume(0);
   vid1.center();
   vid1.hide();
+  vid1.attribute('playsInline', '');
+  vid1.attribute('webkit-playsinline', '');
 
   vid2.pause();
   vid2.speed(1);
   vid2.volume(0);
   vid2.center();
   vid2.hide();
+  vid2.attribute('playsInline', '');
+  vid2.attribute('webkit-playsinline', '');
 
   vid3.pause();
   vid3.speed(1);
   vid3.volume(0);
   vid3.center();
   vid3.hide();
+  vid3.attribute('playsInline', '');
+  vid3.attribute('webkit-playsinline', '');
 }
 
-function mouseClicked(event) {
-	  event.preventDefault();
-	  vid1.loop();
-	  vid2.loop();
-	  vid3.loop();	
+function mouseClicked() {
+  vid1.loop();
+  vid2.loop();
+  vid3.loop();	
 }
 
-
-function touchStarted(event) {
-	  event.preventDefault();
-	  vid1.loop();
-	  vid2.loop();
-	  vid3.loop();	
+function touchStarted() {
+  vid1.loop();
+  vid2.loop();
+  vid3.loop();	
 }
 
 function invert (){
