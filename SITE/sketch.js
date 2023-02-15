@@ -355,6 +355,12 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
   }, {passive: false});
 }
 
+window.onclick = function(event) {
+  if (event.target == document.getElementById('defaultCanvas0')) {
+    event.preventDefault();
+  }
+};
+
 
 function invert (){
   drawingContext.filter = 'invert(100%)'
