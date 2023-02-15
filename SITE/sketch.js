@@ -58,19 +58,34 @@ function draw() {
       
       vid1 = createVideo(
         [vid1num],
-        vidLoad
+        vidLoad,
+        function() {
+          this.attribute('playsinline', '');
+          this.attribute('muted', '');
+          this.hide();
+        }
       );
-  
+	    
       vid2 = createVideo(
         [vid2num],
-        vidLoad
+        vidLoad,
+        function() {
+          this.attribute('playsinline', '');
+          this.attribute('muted', '');
+          this.hide();
+        }
       );
-    
+	    
       vid3 = createVideo(
         [vid3num],
-        vidLoad
-      );
-
+        vidLoad,
+        function() {
+          this.attribute('playsinline', '');
+          this.attribute('muted', '');
+          this.hide();
+        }
+      );	    
+     
       vid1.hide();
       vid2.hide();
       vid3.hide();
@@ -263,16 +278,27 @@ function carrega1(){
   rand3 = Math.floor(Math.random()*lista.length);
   vid3num = lista[rand3];
   lista.splice(rand3,1)
+	    
+      vid2 = createVideo(
+        [vid2num],
+        vidLoad,
+        function() {
+          this.attribute('playsinline', '');
+          this.attribute('muted', '');
+          this.hide();
+        }
+      );
+	    
+      vid3 = createVideo(
+        [vid3num],
+        vidLoad,
+        function() {
+          this.attribute('playsinline', '');
+          this.attribute('muted', '');
+          this.hide();
+        }
+      );	    
 
-  vid2 = createVideo(
-    [vid2num],
-    vidLoad
-  );
-
-  vid3 = createVideo(
-    [vid3num],
-    vidLoad
-  );
   vid2.hide();
   vid3.hide();
 }
@@ -288,10 +314,16 @@ function carrega2(){
   rand1 = Math.floor(Math.random()*lista.length);
   vid1num = lista[rand1];
   lista.splice(rand1,1)
+	
+      vid1 = createVideo(
+        [vid1num],
+        vidLoad,
+        function() {
+          this.attribute('playsinline', '');
+          this.attribute('muted', '');
+          this.hide();
+        }	    
 
-  vid1 = createVideo(
-    [vid1num],
-    vidLoad
   );
   vid1.hide();
 }
@@ -316,26 +348,17 @@ function vidLoad() {
   }
 
   vid1.speed(1);
-  vid1.volume(0);
   vid1.center();
   vid1.hide();
-  vid1.attribute('playsInline', '');
-  vid1.attribute('webkit-playsinline', '');
 
   vid2.speed(1);
-  vid2.volume(0);
   vid2.center();
   vid2.hide();
-  vid2.attribute('playsInline', '');
-  vid2.attribute('webkit-playsinline', '');
 
 
   vid3.speed(1);
-  vid3.volume(0);
   vid3.center();
   vid3.hide();
-  vid3.attribute('playsInline', '');
-  vid3.attribute('webkit-playsinline', '');
 }
 
 
