@@ -319,7 +319,6 @@ function vidLoad() {
   vid1.attribute('playsinline', '');
   vid1.attribute('webkit-playsinline', '');
   vid1.attribute('muted', '');
-  vid1.attribute('controls', 'false');
 
   vid2.speed(1);
   vid2.center();
@@ -327,7 +326,6 @@ function vidLoad() {
   vid2.attribute('playsinline', '');
   vid2.attribute('webkit-playsinline', '');
   vid2.attribute('muted', '');
-  vid2.attribute('controls', 'false');
 
   vid3.speed(1);
   vid3.center();
@@ -335,13 +333,26 @@ function vidLoad() {
   vid3.attribute('playsinline', '');
   vid3.attribute('webkit-playsinline', '');
   vid3.attribute('muted', '');
-  vid3.attribute('controls', 'false');
 }
 
 function touchStarted() {
-  vid1.loop();
-  vid2.loop();
-  vid3.loop();	
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Mobile device detected
+    // Start videos on touch
+    vid1.loop();
+    vid2.loop();
+    vid3.loop();
+    vid1.play();
+    vid2.play();
+    vid3.play();
+  }
+}
+
+// Prevent default touch behavior on mobile
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  window.addEventListener("touchstart", function(event) {
+    event.preventDefault();
+  }, {passive: false});
 }
 
 
