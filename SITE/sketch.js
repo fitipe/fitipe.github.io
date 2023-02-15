@@ -317,19 +317,25 @@ function vidLoad() {
   vid1.center();
   vid1.hide();
   vid1.attribute('playsinline', '');
+  vid1.attribute('webkit-playsinline', '');
   vid1.attribute('muted', '');
+  vid1.attribute('controls', 'false');
 
   vid2.speed(1);
   vid2.center();
   vid2.hide();
   vid2.attribute('playsinline', '');
+  vid2.attribute('webkit-playsinline', '');
   vid2.attribute('muted', '');
+  vid2.attribute('controls', 'false');
 
   vid3.speed(1);
   vid3.center();
   vid3.hide();
   vid3.attribute('playsinline', '');
+  vid3.attribute('webkit-playsinline', '');
   vid3.attribute('muted', '');
+  vid3.attribute('controls', 'false');
 }
 
 function touchStarted() {
