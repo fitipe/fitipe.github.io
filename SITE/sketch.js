@@ -21,24 +21,6 @@ function setup() {
 	sqr = Math.min(windowWidth, windowHeight);
   createCanvas(sqr, sqr);
 	frameRate(23.98);
-	
-	
-	
-	  vidLoad();
-
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    // Mobile device detected
-    // Set videos to start paused and require a click
-    vid1.mouseClicked(playVideo);
-    vid2.mouseClicked(playVideo);
-    vid3.mouseClicked(playVideo);
-  } else {
-    // Desktop device detected
-    // Set videos to start automatically
-    vid1.loop();
-    vid2.loop();
-    vid3.loop();
-  }
 
 }
 
@@ -310,12 +292,25 @@ function carrega2(){
   vid1.hide();
 }
 
-function playVideo() {
-  this.loop();
-}
-
 function vidLoad() {
-  vid1.pause();
+
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Mobile device detected
+    // Set videos to start paused and require a click
+    vid1.pause();
+    vid1.mouseClicked(loop);
+    vid2.pause();
+    vid2.mouseClicked(loop);
+    vid3.pause();
+    vid3.mouseClicked(loop);
+  } else {
+    // Desktop device detected
+    // Set videos to start automatically
+    vid1.loop();
+    vid2.loop();
+    vid3.loop();
+  }
+
   vid1.speed(1);
   vid1.volume(0);
   vid1.center();
@@ -323,7 +318,6 @@ function vidLoad() {
   vid1.attribute('playsInline', '');
   vid1.attribute('webkit-playsinline', '');
 
-  vid2.pause();
   vid2.speed(1);
   vid2.volume(0);
   vid2.center();
@@ -331,7 +325,7 @@ function vidLoad() {
   vid2.attribute('playsInline', '');
   vid2.attribute('webkit-playsinline', '');
 
-  vid3.pause();
+
   vid3.speed(1);
   vid3.volume(0);
   vid3.center();
@@ -340,14 +334,6 @@ function vidLoad() {
   vid3.attribute('webkit-playsinline', '');
 }
 
-
-function vidLoadCallback() {
-  this.speed(1);
-  this.volume(0);
-  this.center();
-  this.attribute("playsInline", "");
-  this.attribute("webkit-playsinline", "");
-}
 
 function invert (){
   drawingContext.filter = 'invert(100%)'
