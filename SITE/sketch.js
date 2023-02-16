@@ -238,11 +238,6 @@ function draw() {
   clear();
 	
   x = x + 1;
-	      
-  vid1.loop();
-  vid2.loop();
-  vid3.loop();
-
 
 
   if (x < 170){
@@ -498,9 +493,34 @@ function carrega2(){
 
 function vidLoad() {
 
-  vid1.pause();
-  vid2.pause();
-  vid3.pause();
+
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+
+    if (touched){
+
+      vid1.loop();
+      vid2.loop();
+      vid3.loop();
+
+    } else { 
+
+      
+      vid1.pause();
+      vid2.pause();
+      vid3.pause();
+
+    } 
+  
+
+
+  } else {
+
+    vid1.loop();
+    vid2.loop();
+    vid3.loop();
+
+  }
+
 
   vid1.volume(0);
   vid2.volume(0);
@@ -528,6 +548,7 @@ function vidLoad() {
   vid3.attribute('webkit-playsinline', '');
   vid3.attribute('muted', '');
 }
+
 
 function touchStarted() {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
