@@ -55,11 +55,6 @@ function draw() {
         clear();
           
         x = x + 1;
-		
-	      vid1.loop();
-        vid2.loop();
-        vid3.loop();
-      
       
         if (x < 170){
           if (invrand1 < 30){
@@ -504,14 +499,11 @@ function vidLoad() {
 
     } else { 
 
-      
       vid1.pause();
       vid2.pause();
       vid3.pause();
 
     } 
-  
-
 
   } else {
 
