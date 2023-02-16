@@ -33,10 +33,6 @@ function setup() {
 
 function draw() {
 
-
-
-
-
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
    
 
@@ -52,8 +48,7 @@ function draw() {
               vid3.pause();
           }
         }
-        
-
+    
 
         if (touched) {
       
@@ -243,6 +238,11 @@ function draw() {
   clear();
 	
   x = x + 1;
+	      
+    vid1.loop();
+    vid2.loop();
+    vid3.loop();
+
 
 
   if (x < 170){
@@ -539,12 +539,7 @@ function touchStarted() {
     // Mobile device detected
     // Start videos on touch
     touched = true;
-    vid1.loop();
-    vid2.loop();
-    vid3.loop();
-    vid1.play();
-    vid2.play();
-    vid3.play();
+
   }
 }
 
