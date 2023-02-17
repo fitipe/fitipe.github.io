@@ -135,11 +135,9 @@ function draw() {
         if (touched) {
 
         if (x == 1){
-          for (let i = 0; i < videoSources.length; i++) {
             videos[video1Index].loop();
             videos[video2Index].loop();
             videos[video3Index].loop();
-          }
         }
       
         if (x < 170){
