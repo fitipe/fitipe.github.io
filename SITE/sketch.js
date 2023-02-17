@@ -79,8 +79,6 @@ function preload() {
     videos[i].attribute('muted', '');
 
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-
-  
   
       videos[i].pause();
 
@@ -118,11 +116,14 @@ function draw() {
           
           if ( y == 0 ){
               carrega3();
+              for (let i = 0; i < videoSources.length; i++) {
+                videos[i].pause();
+              }
               frame1 = videos[video1Index].get();
           }
         }
 
-        background(frame1);
+        background('black');
     
       
         clear();
@@ -132,7 +133,9 @@ function draw() {
         if (touched) {
 
         if (x == 1){
-          videos[i].loop();
+          for (let i = 0; i < videoSources.length; i++) {
+            videos[i].loop();
+          }
         }
       
         if (x < 170){
