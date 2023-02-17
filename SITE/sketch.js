@@ -1,33 +1,114 @@
-let rand1;
-let rand2;
-let rand3;
-
-let vid1num;
-let vid2num;
-let vid3num;
 
 let invrand1;
 let invrand2;
 let invrand3;
 
-let lista = [];
 
 let sqr;
 
 let x = 0;
 let y = 0;
 
-let vid1;
-let vid2;
-let vid3;
 
 let touched = false;
+
+let videos = [];
+
+let video1Index = 0;
+let video2Index = 0;
+let video3Index = 0;
+
+let videoSources = [
+  { file: "1.mp4", source: "./1.mp4" },
+  { file: "2.mp4", source: "./2.mp4" },
+  { file: "3.mp4", source: "./3.mp4" },
+  { file: "4.mp4", source: "./4.mp4" },
+  { file: "5.mp4", source: "./5.mp4" },
+  { file: "6.mp4", source: "./6.mp4" },
+  { file: "7.mp4", source: "./7.mp4" },
+  { file: "8.mp4", source: "./8.mp4" },
+  { file: "9.mp4", source: "./9.mp4" },
+  { file: "10.mp4", source: "./10.mp4" },
+  { file: "11.mp4", source: "./11.mp4" },
+  { file: "12.mp4", source: "./12.mp4" },
+  { file: "13.mp4", source: "./13.mp4" },
+  { file: "14.mp4", source: "./14.mp4" },
+  { file: "15.mp4", source: "./15.mp4" },
+  { file: "16.mp4", source: "./16.mp4" },
+  { file: "17.mp4", source: "./17.mp4" },
+  { file: "18.mp4", source: "./18.mp4" },
+  { file: "19.mp4", source: "./19.mp4" },
+  { file: "20.mp4", source: "./20.mp4" },
+  { file: "21.mp4", source: "./21.mp4" },
+  { file: "22.mp4", source: "./22.mp4" },
+  { file: "23.mp4", source: "./23.mp4" },
+  { file: "24.mp4", source: "./24.mp4" },
+  { file: "25.mp4", source: "./25.mp4" },
+  { file: "26.mp4", source: "./26.mp4" },
+  { file: "27.mp4", source: "./27.mp4" },
+  { file: "28.mp4", source: "./28.mp4" },
+  { file: "29.mp4", source: "./29.mp4" },
+  { file: "30.mp4", source: "./30.mp4" },
+  { file: "31.mp4", source: "./31.mp4" },
+  { file: "32.mp4", source: "./32.mp4" },
+  { file: "33.mp4", source: "./33.mp4" },
+  { file: "34.mp4", source: "./34.mp4" },
+  { file: "35.mp4", source: "./35.mp4" },
+  { file: "36.mp4", source: "./36.mp4" },
+  { file: "37.mp4", source: "./37.mp4" },
+  { file: "38.mp4", source: "./38.mp4" },
+  { file: "39.mp4", source: "./39.mp4" },
+  { file: "40.mp4", source: "./40.mp4" },
+  { file: "41.mp4", source: "./41.mp4" },
+  { file: "42.mp4", source: "./42.mp4" },
+  { file: "43.mp4", source: "./43.mp4" }
+];
+
+function preload() {
+  for (let i = 0; i < videoSources.length; i++) {
+    videos[i] = createVideo(videoSources[i].source);
+    videos[i].hide();
+    videos[i].volume(0);    
+    videos[i].speed(1);
+    videos[i].center();
+    videos[i].hide();
+    videos[i].attribute('playsinline', '');
+    videos[i].attribute('webkit-playsinline', '');
+    videos[i].attribute('muted', '');
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+
+      if (touched){
+  
+        videos[i].loop();
+  
+      } else { 
+  
+        videos[i].pause();
+
+      } 
+  
+    } else {
+  
+      videos[i].loop();
+  
+    }
+  
+
+
+  }
+}
+
+
+
+
 
 function setup() {
   sqr = Math.min(windowWidth, windowHeight);
   createCanvas(sqr, sqr);
   frameRate(24);
 }
+
 
 /// D R A W
 
@@ -43,9 +124,6 @@ function draw() {
           
           if ( y == 0 ){
               carrega3();
-	            vid1.pause();
-              vid2.pause();
-              vid3.pause();
           }
         }
     
@@ -405,34 +483,10 @@ function carrega3(){
       invrand1 = Math.floor(Math.random()*100);
       invrand2 = Math.floor(Math.random()*100);
       invrand3 = Math.floor(Math.random()*100);
-
-      let lista = ['./0.mp4','./1.mp4','./2.mp4','./3.mp4','./4.mp4','./5.mp4','./6.mp4','./7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4','./15.mp4','./16.mp4','./17.mp4', './18.mp4','./19.mp4', './20.mp4', './21.mp4', './22.mp4', './23.mp4', './24.mp4', './25.mp4', './26.mp4', './27.mp4', './28.mp4','./29.mp4', './31.mp4', './32.mp4','./33.mp4','./34.mp4','./35.mp4', './36.mp4','./37.mp4', './38.mp4', './39.mp4', './40.mp4', './41.mp4', './42.mp4','./43.mp4']
   
-      rand1 = Math.floor(Math.random()*lista.length);
-      vid1num = lista[rand1];
-      lista.splice(rand1,1)
-      
-      rand2 = Math.floor(Math.random()*lista.length);
-      vid2num = lista[rand2];
-      lista.splice(rand2,1)
-      
-      rand3 = Math.floor(Math.random()*lista.length);
-      vid3num = lista[rand3];
-      lista.splice(rand3,1)
-      
-      vid1 = createVideo(
-        [vid1num]
-      );
-	    
-      vid2 = createVideo(
-        [vid2num]
-      );
-	    
-      vid3 = createVideo(
-        [vid3num]
-      );	    
-     
-    vidLoad();
+      video1Index = Math.floor(Math.random()*videoSources.length);
+      video2Index = Math.floor(Math.random()*videoSources.length);
+      video3Index = Math.floor(Math.random()*videoSources.length);
 	
 }
 
@@ -440,106 +494,25 @@ function carrega3(){
 
 function carrega1(){
 
-  vid2.remove();
-  vid3.remove();
+  video2Index.remove();
+  video3Index.remove();
 
   invrand2 = Math.floor(Math.random()*100);
   invrand3 = Math.floor(Math.random()*100);
 
-  let lista = ['./0.mp4','./1.mp4','./2.mp4','./3.mp4','./4.mp4','./5.mp4','./6.mp4','./7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4','./15.mp4','./16.mp4','./17.mp4', './18.mp4','./19.mp4', './20.mp4', './21.mp4', './22.mp4', './23.mp4', './24.mp4', './25.mp4', './26.mp4', './27.mp4', './28.mp4','./29.mp4', './31.mp4', './32.mp4','./33.mp4','./34.mp4','./35.mp4', './36.mp4','./37.mp4', './38.mp4', './39.mp4', './40.mp4', './41.mp4', './42.mp4','./43.mp4']
-  lista.splice(rand1,1)
-  
-  rand2 = Math.floor(Math.random()*lista.length);
-  vid2num = lista[rand2];
-  lista.splice(rand2,1)
-  
-  rand3 = Math.floor(Math.random()*lista.length);
-  vid3num = lista[rand3];
-  lista.splice(rand3,1)
-	    
-      vid2 = createVideo(
-        [vid2num]
-      );
-	    
-      vid3 = createVideo(
-        [vid3num]
-      );	    
+  video2Index = Math.floor(Math.random()*videoSources.length);
+  video3Index = Math.floor(Math.random()*videoSources.length);
 
-  vidLoad();
 }
 
 
 function carrega2(){
 
-  vid1.remove();
+  video1Index.remove();
   invrand1 = Math.floor(Math.random()*100);
-
-  let lista = ['./0.mp4','./1.mp4','./2.mp4','./3.mp4','./4.mp4','./5.mp4','./6.mp4','./7.mp4', './8.mp4', './9.mp4', './10.mp4', './11.mp4', './12.mp4', './13.mp4', './14.mp4','./15.mp4','./16.mp4','./17.mp4', './18.mp4','./19.mp4', './20.mp4', './21.mp4', './22.mp4', './23.mp4', './24.mp4', './25.mp4', './26.mp4', './27.mp4', './28.mp4','./29.mp4', './31.mp4', './32.mp4','./33.mp4','./34.mp4','./35.mp4', './36.mp4','./37.mp4', './38.mp4', './39.mp4', './40.mp4', './41.mp4', './42.mp4','./43.mp4']
-
-  rand1 = Math.floor(Math.random()*lista.length);
-  vid1num = lista[rand1];
-  lista.splice(rand1,1)
-	
-      vid1 = createVideo(
-        [vid1num]	    
-  );
-  vidLoad();
+  video1Index = Math.floor(Math.random()*videoSources.length);
 }
 
-function vidLoad() {
-
-
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-
-    if (touched){
-
-      vid1.loop();
-      vid2.loop();
-      vid3.loop();
-
-    } else { 
-
-      vid1.pause();
-      vid2.pause();
-      vid3.pause();
-
-    } 
-
-  } else {
-
-    vid1.loop();
-    vid2.loop();
-    vid3.loop();
-
-  }
-
-
-  vid1.volume(0);
-  vid2.volume(0);
-  vid3.volume(0);
-  
-
-  vid1.speed(1);
-  vid1.center();
-  vid1.hide();
-  vid1.attribute('playsinline', '');
-  vid1.attribute('webkit-playsinline', '');
-  vid1.attribute('muted', '');
-
-  vid2.speed(1);
-  vid2.center();
-  vid2.hide();
-  vid2.attribute('playsinline', '');
-  vid2.attribute('webkit-playsinline', '');
-  vid2.attribute('muted', '');
-
-  vid3.speed(1);
-  vid3.center();
-  vid3.hide();
-  vid3.attribute('playsinline', '');
-  vid3.attribute('webkit-playsinline', '');
-  vid3.attribute('muted', '');
-}
 
 
 function touchStarted() {
@@ -574,18 +547,18 @@ function desinvert(){
 }
 
 function video1() {
-  frame1 = vid1.get();
+  frame1 = videos[video1Index].get();
   image(frame1,0,0,sqr,sqr)
 }
 
 
 function video2() {
-  frame2 = vid2.get();
+  frame2 = videos[video2Index].get();
   image(frame2,0,0,sqr,sqr)
 }
 
 
 function video3() {
-  frame3 = vid3.get();
+  frame3 = videos[video3Index].get();
   image(frame3,0,0,sqr,sqr)
 }
