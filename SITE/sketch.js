@@ -116,14 +116,16 @@ function draw() {
           
           if ( y == 0 ){
               carrega3();
-              for (let i = 0; i < videoSources.length; i++) {
-                videos[i].pause();
-              }
+                
+              videos[video1Index].pause();
+              videos[video2Index].pause();
+              videos[video3Index].pause();
+
               frame1 = videos[video1Index].get();
           }
         }
 
-        background('black');
+        background(frame1);
     
       
         clear();
@@ -134,7 +136,9 @@ function draw() {
 
         if (x == 1){
           for (let i = 0; i < videoSources.length; i++) {
-            videos[i].loop();
+            videos[video1Index].loop();
+            videos[video2Index].loop();
+            videos[video3Index].loop();
           }
         }
       
