@@ -494,8 +494,6 @@ function carrega3(){
 
 function carrega1(){
 
-  video2Index.remove();
-  video3Index.remove();
 
   invrand2 = Math.floor(Math.random()*100);
   invrand3 = Math.floor(Math.random()*100);
@@ -508,7 +506,6 @@ function carrega1(){
 
 function carrega2(){
 
-  video1Index.remove();
   invrand1 = Math.floor(Math.random()*100);
   video1Index = Math.floor(Math.random()*videoSources.length);
 }
