@@ -52,7 +52,6 @@ let videoSources = [
   { file: "27.mp4", source: "./27.mp4" },
   { file: "28.mp4", source: "./28.mp4" },
   { file: "29.mp4", source: "./29.mp4" },
-  { file: "30.mp4", source: "./30.mp4" },
   { file: "31.mp4", source: "./31.mp4" },
   { file: "32.mp4", source: "./32.mp4" },
   { file: "33.mp4", source: "./33.mp4" },
