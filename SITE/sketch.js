@@ -67,7 +67,6 @@ let videoSources = [
 function preload() {
   for (let i = 0; i < videoSources.length; i++) {
     videos[i] = createVideo(videoSources[i].source);
-    videos[i].hide();
     videos[i].volume(0);    
     videos[i].speed(1);
     videos[i].center();
@@ -78,23 +77,16 @@ function preload() {
 
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
 
-      if (touched){
   
-        videos[i].loop();
   
-      } else { 
-  
-        videos[i].pause();
+      videos[i].pause();
 
-      } 
   
     } else {
   
       videos[i].loop();
   
     }
-  
-
 
   }
 }
@@ -117,7 +109,7 @@ function draw() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
    
 
-        background("white");
+        background(frame1);
 
 
         if ( x == 0 ){
@@ -127,12 +119,16 @@ function draw() {
           }
         }
     
-
-        if (touched) {
       
         clear();
           
         x = x + 1;
+
+        if (touched) {
+
+        if (x == 1){
+          videos[i].loop();
+        }
       
         if (x < 170){
           if (invrand1 < 30){
