@@ -1,3 +1,7 @@
+let frame1;
+let frame2;
+let frame3;
+
 
 let invrand1;
 let invrand2;
@@ -109,15 +113,17 @@ function draw() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
    
 
-        background(frame1);
 
 
         if ( x == 0 ){
           
           if ( y == 0 ){
               carrega3();
+              frame1 = videos[video1Index].get();
           }
         }
+
+        background(frame1);
     
       
         clear();
