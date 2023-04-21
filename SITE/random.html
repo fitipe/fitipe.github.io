@@ -59,7 +59,7 @@
             startButton.position(sqr / 2 - startButton.width / 2, sqr / 2 - startButton.height / 2);
 	    startButton.mousePressed(startPlaying);
 	    startButton.touchStarted(startPlaying);
-	    startButton.addEventListener("click", startPlaying);
+	    startButton.elt.addEventListener("click", startPlaying);
 
         }
 	function startPlaying() {
