@@ -70,12 +70,13 @@
 
 	  // preload the first video after user interaction on mobile devices
 	  if (isMobileDevice()) {
-	    document.addEventListener("touchstart", preloadVideo, { once: true });
-	    document.addEventListener("click", preloadVideo, { once: true });
+	    canvas.elt.addEventListener("touchstart", preloadVideo, { once: true });
+	    canvas.elt.addEventListener("click", preloadVideo, { once: true });
 	  } else {
-	   preloadVideo();
+	    preloadVideo();
 	  }
 	}
+
 
 	function isMobileDevice() {
 	  return /Mobi|Android/i.test(navigator.userAgent);
