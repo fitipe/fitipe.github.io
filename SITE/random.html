@@ -67,11 +67,13 @@
 				    startButton.remove();
 				
 				    // preload the first video after user interaction on mobile devices
-				    if (isMobileDevice()) {
-				        document.addEventListener("touchstart", preloadVideo, { once: true });
-				    } else {
-				        preloadVideo();
-				    }
+				if (isMobileDevice()) {
+					document.addEventListener("touchend", preloadVideo, { once: true });
+					document.addEventListener("click", preloadVideo, { once: true });
+					} else {
+					preloadVideo();
+				}
+
 				}
 				
 				function isMobileDevice() {
