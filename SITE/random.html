@@ -57,13 +57,12 @@
             // set up the start button
             startButton = select("#start-button");
             startButton.position(sqr / 2 - startButton.width / 2, sqr / 2 - startButton.height / 2);
-	    startButton.mousePressed(startPlaying);
+            startButton.mousePressed(startPlaying);
 	    startButton.touchStarted(startPlaying);
-	    startButton.elt.addEventListener("click", startPlaying);
 
         }
 	function startPlaying() {
-	  // remove the start button
+ 	 // remove the start button
 	  startButton.remove();
 
 	  // log the touch event
@@ -71,69 +70,58 @@
 
 	  // preload the first video after user interaction on mobile devices
 	  if (isMobileDevice()) {
-	    canvas.elt.addEventListener("touchstart", preloadVideo, { once: true });
-	    canvas.elt.addEventListener("click", preloadVideo, { once: true });
+	    document.addEventListener("touchstart", preloadVideo, { once: true });
+	    document.addEventListener("click", preloadVideo, { once: true });
 	  } else {
 	    preloadVideo();
 	  }
 	}
 
-
-	function isMobileDevice() {
-	  return /Mobi|Android/i.test(navigator.userAgent);
-	}
-
 				
-	function preloadVideo() {
-    removeVideo();
-
-    // create a new video element
-    nextVideo = createVideo(videos[Math.floor(Math.random() * videos.length)], () => {
-        nextVideo.elt.muted = true;
-        nextVideo.elt.setAttribute('playsinline', '');
-        nextVideo.show();
-
-        nextVideo.elt.onloadeddata = function () {
-            // add the video to the DOM and set its opacity to 0
-            nextVideo.elt.classList.add("video");
-            document.body.appendChild(nextVideo.elt);
-            nextVideo.elt.style.opacity = 0;
-
-            // start playing the video after it's loaded
-            nextVideo.play();
-            nextVideo.loop();
-
-            let startTime = millis();
-            let currentTime = 0;
-
-            function animate() {
-                currentTime = millis() - startTime;
-
-                if (currentTime < fadeTime * 1000) {
-                    videoOpacity = map(currentTime, 0, fadeTime * 1000, 0, 1);
-                    if (currentVideo) {
-                        currentVideo.elt.style.opacity = 1 - videoOpacity;
-                    }
-                    nextVideo.elt.style.opacity = videoOpacity;
-                    requestAnimationFrame(animate);
-                } else {
-                    videoOpacity = 0;
-                    currentVideo = nextVideo;
-
-                    // preload the next video
-                    setTimeout(function() {
-                        preloadVideo();
-                    }, 5000);
-                }
-            }
-
-            animate();
-        }
-        nextVideo.hide();
-    });
-}
-
-
+				function isMobileDevice() {
+				    return /Mobi|Android/i.test(navigator.userAgent);
+				}
+				
+				function preloadVideo() {
+				    // create a new video element
+				    nextVideo = createVideo(videos[Math.floor(Math.random() * videos.length)]);
+				    nextVideo.elt.muted = true;
+				    nextVideo.elt.onloadeddata = function () {
+				        // start playing the video after it's loaded
+				        nextVideo.play();
+				        nextVideo.loop();
+				        nextVideo.elt.classList.add("video");
+				        document.body.appendChild(nextVideo.elt);
+				
+				        let startTime = millis();
+				        let currentTime = 0;
+				
+								function animate() {
+								  currentTime = millis() - startTime;
+								
+								  if (currentTime < fadeTime * 1000) {
+								    videoOpacity = map(currentTime, 0, fadeTime * 1000, 0, 1);
+								    if (currentVideo) {
+								      currentVideo.elt.style.opacity = 1 - videoOpacity;
+								    }
+								    nextVideo.elt.style.opacity = videoOpacity;
+								    requestAnimationFrame(animate);
+								  } else {
+								    videoOpacity = 0;
+								    removeVideo();
+								    currentVideo = nextVideo;
+								    // preload the next video
+								    setTimeout(function() {
+								      preloadVideo();
+								    }, 5000);
+								  }
+								}
+								
+				
+				        animate();
+				    }
+				    nextVideo.hide();
+				}
 				
 
 
