@@ -49,33 +49,41 @@
         let sqr;
         let startButton;
 
-        function setup() {
-            sqr = Math.min(windowWidth, windowHeight);
-            canvas = createCanvas(sqr, sqr);
-            canvas.parent("canvas-container");
+	function setup() {
+	    sqr = Math.min(windowWidth, windowHeight);
+	    canvas = createCanvas(sqr, sqr);
+	    canvas.parent("canvas-container");
 
-            // set up the start button
-            startButton = select("#start-button");
-            startButton.position(sqr / 2 - startButton.width / 2, sqr / 2 - startButton.height / 2);
-            startButton.mousePressed(startPlaying);
-	    startButton.touchStarted(startPlaying);
+	    // set up the start button
+	    startButton = select("#start-button");
+	    startButton.position(sqr / 2 - startButton.width / 2, sqr / 2 - startButton.height / 2);
 
-        }
-function startPlaying() {
-    // remove the start button
-    startButton.remove();
+	    if (isMobileDevice()) {
+	        // add event listeners to preload video on touch or click
+	        startButton.touchStarted(startPlaying);
+	        document.addEventListener("touchstart", preloadVideo, { once: true });
+	        document.addEventListener("click", preloadVideo, { once: true });
+	    } else {
+	        startButton.mousePressed(startPlaying);
+ 	       preloadVideo();
+ 	   }
+	}
 
-    // log the touch event
-    console.log('touch event triggered');
+	function startPlaying() {
+	    // remove the start button
+	    startButton.remove();
 
-    // preload the first video after user interaction on mobile devices
-    if (isMobileDevice()) {
-        document.addEventListener("touchstart", preloadVideo, { once: true });
-        document.addEventListener("click", preloadVideo, { once: true });
-    } else {
-        preloadVideo();
-    }
-}
+	    // log the touch event
+	    console.log('touch event triggered');
+
+ 	   // preload the first video after user interaction on mobile devices
+	    if (isMobileDevice()) {
+	        document.addEventListener("touchstart", preloadVideo, { once: true });
+	        document.addEventListener("click", preloadVideo, { once: true });
+	    } else {
+	        preloadVideo();
+	    }
+	}
 
 
 
