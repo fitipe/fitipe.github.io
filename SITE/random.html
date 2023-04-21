@@ -82,17 +82,15 @@
 	  return /Mobi|Android/i.test(navigator.userAgent);
 	}
 
-
-
-				
-	function isMobileDevice() {
-		return /Mobi|Android/i.test(navigator.userAgent);
-		}
 				
 	function preloadVideo() {
   	// create a new video element
-  	nextVideo = createVideo(videos[Math.floor(Math.random() * videos.length)]);
-  	nextVideo.elt.muted = true;
+	nextVideo = createVideo(videos[Math.floor(Math.random() * videos.length)], () => {
+	nextVideo.elt.muted = true;
+	nextVideo.elt.setAttribute('playsinline', '');
+	nextVideo.show();
+
+
   	nextVideo.elt.onloadeddata = function () {
  	   // add the video to the DOM and set its opacity to 0
  	   nextVideo.elt.classList.add("video");
