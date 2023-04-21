@@ -62,20 +62,22 @@
 
         }
 	function startPlaying() {
-	    // remove the start button
-	    startButton.remove();
+	    // log the touch event
+	    console.log('touch event triggered');
 
- 	   // log the touch event
- 	   console.log('touch event triggered');
-
- 	   // preload the first video after user interaction on mobile devices
- 	   if (isMobileDevice()) {
- 	       document.addEventListener("touchstart", preloadVideo, { once: true });
- 	       document.addEventListener("click", preloadVideo, { once: true });
- 	   } else {
+	    // check if the device is mobile
+	    if (isMobileDevice()) {
+ 	       // add event listeners to preload the first video after user interaction
+	        document.addEventListener("touchstart", preloadVideo, { once: true });
+	        document.addEventListener("click", preloadVideo, { once: true });
+  	  } else {
+	        // remove the start button
+	        startButton.remove();
+	        // preload the first video
 	        preloadVideo();
 	    }
 	}
+
 
 
 				
