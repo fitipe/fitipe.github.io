@@ -73,9 +73,14 @@
 	    document.addEventListener("touchstart", preloadVideo, { once: true });
 	    document.addEventListener("click", preloadVideo, { once: true });
 	  } else {
- 	   preloadVideo();
- 	 }
+	   preloadVideo();
+	  }
 	}
+
+	function isMobileDevice() {
+	  return /Mobi|Android/i.test(navigator.userAgent);
+	}
+
 
 
 				
