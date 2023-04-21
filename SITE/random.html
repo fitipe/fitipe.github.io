@@ -64,8 +64,8 @@
 	        document.addEventListener("touchstart", preloadVideo, { once: true });
 	        document.addEventListener("click", preloadVideo, { once: true });
 	    } else {
+		startButton.mousePressed(preloadVideo);
 	        startButton.mousePressed(startPlaying);
- 	       preloadVideo();
  	   }
 	}
 	    
