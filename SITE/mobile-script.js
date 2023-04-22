@@ -14,7 +14,7 @@ function setup() {
 function preloadMedia() {
     let images = ['./0.jpg', './1.jpg', './2.jpg', './3.jpg'];
     let randomImage = images[Math.floor(Math.random() * images.length)];
-    media = createElement('img');
+    media = createElement('img', '', '', true);
     media.attribute('src', randomImage);
     media.attribute('width', sqr);
     media.attribute('height', sqr);
@@ -28,7 +28,7 @@ function preloadMedia() {
 function selectNextImage() {
     let images = ['./0.jpg', './1.jpg', './2.jpg', './3.jpg'];
     let nextImage = images[Math.floor(Math.random() * images.length)];
-    nextMedia = createElement('img');
+    nextMedia = createElement('img', '', '', true);
     nextMedia.attribute('src', nextImage);
     nextMedia.attribute('width', sqr);
     nextMedia.attribute('height', sqr);
