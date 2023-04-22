@@ -20,7 +20,7 @@ function cropImage(img) {
 }
 
 function preloadMedia() {
-  let images = ['./0.jpg', './1.jpg', './2.jpg'];
+  let images = ['./3.jpg', './4.jpg', './5.jpg'];
   let randomImage = images[Math.floor(Math.random() * images.length)];
   media = createImg(randomImage, '', '', true, function() {
     media.hide();
@@ -32,7 +32,7 @@ function preloadMedia() {
 }
 
 function selectNextImage() {
-  let images = ['./0.jpg', './1.jpg', './2.jpg'];
+  let images = ['./3.jpg', './4.jpg', './5.jpg'];
   let nextImage = images[Math.floor(Math.random() * images.length)];
   nextMedia = createImg(nextImage, '', '', true, function() {
     nextMedia.hide();
