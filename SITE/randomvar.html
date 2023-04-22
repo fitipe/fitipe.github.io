@@ -25,7 +25,7 @@
 
     <script>
         let media;
-        let lastMedia;
+        let nextMedia;
         let isMobile = /Mobi|Android/i.test(navigator.userAgent);
         var sqr;
 
@@ -47,6 +47,8 @@
                 media.attribute('height', sqr);
                 media.hide();
                 media.parent("canvas-container");
+
+                // schedule next media to load after 5 seconds
                 setTimeout(preloadMedia, 5000);
             } else {
                 // preload a random video if on desktop
@@ -57,21 +59,23 @@
                 media.hide();
                 media.loop();
                 document.body.appendChild(media.elt);
-                setTimeout(function(){
-                    lastMedia = media;
-                    let newRandomVideo;
-                    do {
-                        newRandomVideo = videos[Math.floor(Math.random() * videos.length)];
-                    } while (newRandomVideo === randomVideo);
-                    randomVideo = newRandomVideo;
-                    media = createVideo(randomVideo);
-                    media.elt.muted = true;
-                    media.hide();
-                    media.loop();
-                    document.body.appendChild(media.elt);
-                    lastMedia.remove();
-                    setTimeout(preloadMedia, 5000);
-                }, 5000);
+
+                // schedule next media to load after video starts playing
+                media.elt.onplay = function() {
+                    let nextVideo = videos[Math.floor(Math.random() * videos.length)];
+                    nextMedia = createVideo(nextVideo);
+                    nextMedia.elt.muted = true;
+                    nextMedia.hide();
+                    nextMedia.loop();
+                    document.body.appendChild(nextMedia.elt);
+
+                    // remove current media after next media starts playing
+                    nextMedia.elt.onplay = function() {
+                        media.remove();
+                        media = nextMedia;
+                        nextMedia = undefined;
+                    };
+                };
             }
         }
 
@@ -87,3 +91,4 @@
     </script>
 </body>
 </html>
+
