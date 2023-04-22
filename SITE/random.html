@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +50,9 @@
         let canvas;
         let sqr;
         let startButton;
-
+	    
+	    
+	    
 	function setup() {
 	    sqr = Math.min(windowWidth, windowHeight);
 	    canvas = createCanvas(sqr, sqr);
@@ -64,23 +68,21 @@
 	        document.addEventListener("touchstart", preloadVideo, { once: true });
 	        document.addEventListener("click", preloadVideo, { once: true });
 	    } else {
-		startButton.mousePressed(preloadVideo);
 	        startButton.mousePressed(startPlaying);
  	   }
 	}
 	    
-
-
+	    
 	function startPlaying() {
-	    // remove the start button
-	    startButton.remove();
+ 	 // remove the start button
+	  startButton.remove();
 
-	    // log the touch event
-	    console.log('touch event triggered');
+	  // log the touch event
+	  console.log('touch event triggered');
+
+	  // preload the first video after user interaction on mobile devices
+	  preloadVideo();
 	}
-
-
-
 
 				
 				function isMobileDevice() {
