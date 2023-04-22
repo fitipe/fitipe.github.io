@@ -1,3 +1,5 @@
+console.log("Mobile script is running!");
+
 let media;
 let nextMedia;
 var sqr;
