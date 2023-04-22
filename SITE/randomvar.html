@@ -26,9 +26,10 @@
     <script>
         let media;
         let isMobile = /Mobi|Android/i.test(navigator.userAgent);
+        let sqr;
 
         function setup() {
-            let sqr = Math.min(windowWidth, windowHeight);
+            sqr = Math.min(windowWidth, windowHeight);
             let canvas = createCanvas(sqr, sqr);
             canvas.parent("canvas-container");
             preloadMedia();
