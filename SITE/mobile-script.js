@@ -49,6 +49,8 @@ function draw() {
       clear();
 
       // draw the current media
-      image(media, 0, 0, sqr, sqr);
+      let ctx = canvas.getContext('2d');
+      ctx.drawImage(media.elt, 0, 0, sqr, sqr);
     }
 }
+
