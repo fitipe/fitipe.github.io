@@ -28,6 +28,8 @@
         let nextMedia;
         let isMobile = /Mobi|Android/i.test(navigator.userAgent);
         var sqr;
+        var videoDuration = 5000; // time in milliseconds before selecting new video
+        var timer; // holds the timer ID
 
         function setup() {
             sqr = Math.min(windowWidth, windowHeight);
@@ -49,7 +51,7 @@
                 media.parent("canvas-container");
 
                 // schedule next media to load after 5 seconds
-                setTimeout(preloadMedia, 5000);
+                setTimeout(preloadMedia, videoDuration);
             } else {
                 // preload a random video if on desktop
                 let videos = ['./0.mp4','./1.mp4','./2.mp4'];
@@ -60,23 +62,26 @@
                 media.loop();
                 document.body.appendChild(media.elt);
 
-                // schedule next media to load after video starts playing
-                media.elt.onplay = function() {
-                    let nextVideo = videos[Math.floor(Math.random() * videos.length)];
-                    nextMedia = createVideo(nextVideo);
-                    nextMedia.elt.muted = true;
-                    nextMedia.hide();
-                    nextMedia.loop();
-                    document.body.appendChild(nextMedia.elt);
-
-                    // remove current media after next media starts playing
-                    nextMedia.elt.onplay = function() {
-                        media.remove();
-                        media = nextMedia;
-                        nextMedia = undefined;
-                    };
-                };
+                // set timer to select next video after a certain duration
+                timer = setInterval(selectNextVideo, videoDuration);
             }
+        }
+
+        function selectNextVideo() {
+            let videos = ['./0.mp4','./1.mp4','./2.mp4'];
+            let nextVideo = videos[Math.floor(Math.random() * videos.length)];
+            nextMedia = createVideo(nextVideo);
+            nextMedia.elt.muted = true;
+            nextMedia.hide();
+            nextMedia.loop();
+            document.body.appendChild(nextMedia.elt);
+
+            // remove current media after next media starts playing
+            nextMedia.elt.onplay = function() {
+                media.remove();
+                media = nextMedia;
+                nextMedia = undefined;
+            };
         }
 
         function draw() {
@@ -91,4 +96,3 @@
     </script>
 </body>
 </html>
-
