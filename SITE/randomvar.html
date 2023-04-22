@@ -26,7 +26,7 @@
     <script>
         let media;
         let isMobile = /Mobi|Android/i.test(navigator.userAgent);
-        var sqr;
+				var sqr;
 
         function setup() {
             sqr = Math.min(windowWidth, windowHeight);
@@ -40,7 +40,7 @@
                 // display a random image if on mobile
                 let images = ['./0.jpg','./1.jpg','./2.jpg','./3.jpg'];
                 let randomImage = images[Math.floor(Math.random() * images.length)];
-                media = createImg(randomImage);
+                media = createImg(randomImage, "random image");
                 media.size(width, height);
                 media.hide();
                 document.body.appendChild(media.elt);
@@ -61,7 +61,7 @@
         function draw() {
             if (media !== undefined) {
                 // clear the canvas
-                clear();
+								clear();
 
                 // draw the current media
                 image(media, 0, 0, sqr, sqr);
