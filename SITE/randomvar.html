@@ -36,32 +36,34 @@
         }
 
         function preloadMedia() {
-            if (isMobile) {
-                // display a random image if on mobile
-                let images = ['./0.jpg','./1.jpg','./2.jpg','./3.jpg'];
-                let randomImage = images[Math.floor(Math.random() * images.length)];
-                media = createImg(randomImage, "random image");
-                media.size(width, height);
-                media.hide();
-                document.body.appendChild(media.elt);
-                setTimeout(preloadMedia, 5000);
-            } else {
-                // preload a random video if on desktop
-                let videos = ['./0.mp4','./1.mp4','./2.mp4'];
-                let randomVideo = videos[Math.floor(Math.random() * videos.length)];
-                media = createVideo(randomVideo);
-                media.elt.muted = true;
-                media.hide();
-                media.loop();
-                document.body.appendChild(media.elt);
-                setTimeout(preloadMedia, 5000);
-            }
-        }
+				    if (isMobile) {
+				        // display a random image if on mobile
+				        let images = ['./0.jpg','./1.jpg','./2.jpg','./3.jpg'];
+				        let randomImage = images[Math.floor(Math.random() * images.length)];
+				        media = createElement('img');
+				        media.attribute('src', randomImage);
+				        media.attribute('width', sqr);
+				        media.attribute('height', sqr);
+				        media.hide();
+				        media.parent("canvas-container");
+				        setTimeout(preloadMedia, 5000);
+				    } else {
+				        // preload a random video if on desktop
+				        let videos = ['./0.mp4','./1.mp4','./2.mp4'];
+				        let randomVideo = videos[Math.floor(Math.random() * videos.length)];
+				        media = createVideo(randomVideo);
+				        media.elt.muted = true;
+				        media.hide();
+				        media.loop();
+				        document.body.appendChild(media.elt);
+				        setTimeout(preloadMedia, 5000);
+				    }
+				}
 
         function draw() {
             if (media !== undefined) {
                 // clear the canvas
-								clear();
+		clear();
 
                 // draw the current media
                 image(media, 0, 0, sqr, sqr);
