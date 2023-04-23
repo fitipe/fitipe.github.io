@@ -1,4 +1,4 @@
-console.log("Mobile script is running!");
+console.log("Mobile!");
 
 let media;
 let nextMedia;
