@@ -1,7 +1,7 @@
 let media;
 let nextMedia;
 var sqr;
-var videoDuration = 5000; // time in milliseconds before selecting new video
+var videoDuration = 9000; // time in milliseconds before selecting new video
 var timer; // holds the timer ID
 
 function setup() {
