@@ -43,8 +43,7 @@ function selectNextVideo() {
 
 function draw() {
     if (media !== undefined) {
-        // clear the canvas
-        clear();
+
 
         // draw the current media
         image(media, 0, 0, sqr, sqr);
