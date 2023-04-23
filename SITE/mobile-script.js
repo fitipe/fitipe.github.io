@@ -13,38 +13,37 @@ function setup() {
     preloadMedia();
 }
 
-function cropImage(img) {
-  let x = random(img.width - 720);
-  let y = random(img.height - 720);
-  return img.get(x, y, 720, 720);
-}
-
 function preloadMedia() {
-  let images = ['./3.jpg', './4.jpg', './5.jpg'];
-  let randomImage = images[Math.floor(Math.random() * images.length)];
-  media = createImg(randomImage, '', '', true, function() {
+    let images = ['./0.jpg', './1.jpg', './2.jpg'];
+    let randomImage = images[Math.floor(Math.random() * images.length)];
+    media = createElement('img', '', '', true);
+    media.attribute('src', randomImage);
+    media.attribute('width', sqr);
+    media.attribute('height', sqr);
     media.hide();
     media.parent("canvas-container");
 
     // set timer to select next image after a certain duration
     timer = setInterval(selectNextImage, imageDuration);
-  });
 }
 
 function selectNextImage() {
-  let images = ['./3.jpg', './4.jpg', './5.jpg'];
-  let nextImage = images[Math.floor(Math.random() * images.length)];
-  nextMedia = createImg(nextImage, '', '', true, function() {
+    let images = ['./0.jpg', './1.jpg', './2.jpg'];
+    let nextImage = images[Math.floor(Math.random() * images.length)];
+    nextMedia = createElement('img', '', '', true);
+    nextMedia.attribute('src', nextImage);
+    nextMedia.attribute('width', sqr);
+    nextMedia.attribute('height', sqr);
     nextMedia.hide();
     nextMedia.parent("canvas-container");
 
-    let croppedImage = cropImage(nextMedia.elt);
-    media.attribute('src', croppedImage.canvas.toDataURL());
-    nextMedia.remove();
-    nextMedia = undefined;
-  });
+    // remove current media after next media loads
+    nextMedia.elt.onload = function() {
+      media.remove();
+      media = nextMedia;
+      nextMedia = undefined;
+    };
 }
-
 
 function draw() {
     if (media !== undefined) {
