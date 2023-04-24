@@ -14,7 +14,7 @@ function setup() {
 }
 
 function preloadMedia() {
-    let images = ['./0.jpg', './1.jpg', './2.jpg'];
+    let images = Array.from({ length: 88 }, (_, i) => `./${i}.jpg`);
     let randomImage = images[Math.floor(Math.random() * images.length)];
     media = createElement('img', '', '', true);
     media.attribute('src', randomImage);
@@ -28,7 +28,7 @@ function preloadMedia() {
 }
 
 function selectNextImage() {
-    let images = ['./0.jpg', './1.jpg', './2.jpg'];
+    let images = Array.from({ length: 88 }, (_, i) => `./${i}.jpg`);
     let nextImage = images[Math.floor(Math.random() * images.length)];
     nextMedia = createElement('img', '', '', true);
     nextMedia.attribute('src', nextImage);
