@@ -273,7 +273,7 @@ function draw() {
   if (!carregou){
     stroke(hl.randomInt(0, 255),hl.randomInt(0, 255),hl.randomInt(0, 255));
     strokeWeight(37);
-    line(sqr/4, sqr/2,sqr/3+videosLoaded*6.8, sqr/2);
+    line(sqr/4, sqr/2,sqr/4+sqr/2.15*videosLoaded/33, sqr/2);
   }
 
 
