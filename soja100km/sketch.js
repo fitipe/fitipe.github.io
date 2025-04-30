@@ -23,7 +23,7 @@ function mousePressed() {
 }
 
 function draw() {
-  background(0);
+  background(20);
   
   // Calcular dimensões para manter a proporção e centralizar
   let vidWidth, vidHeight;
@@ -52,11 +52,7 @@ function draw() {
   }
   
   // Mostrar a mensagem para clicar se o vídeo ainda não iniciou
-  if (!videoStarted) {
-    // Criar um fundo semi-transparente para a mensagem
-    fill(0, 0, 0, 200);
-    rect(0, height/2 - 40, width, 80);
-    
+  if (!videoStarted) {   
     // Mostrar texto de instrução
     fill(255);
     textSize(24);
