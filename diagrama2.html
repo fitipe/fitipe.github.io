@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conceitos Flutuantes - Dual Mode</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000000;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', monospace;
+            cursor: none;
+        }
+        html {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let conceptBoxes = [];
+        let centerBox; // Caixa no centro do mouse (rotativa)
+        let canvasWidth, canvasHeight;
+        let RanDist = 50;
+        let lastRanDistChange = 0;
+        let ranDistChangeInterval = 5000;
+        
+        // Variáveis para mobile
+        let isMobile = false;
+        let virtualMouseX, virtualMouseY;
+        let targetX, targetY;
+        let currentSpeed = 0.01; // Mais lento
+        let targetSpeed = 0.01;
+        let lastSpeedChange = 0;
+        let speedChangeInterval = 5000;
+        let wanderAngle = 0;
+        let wanderSpeed = 0.008; // Mais lento
+
+        // Sistema de alternância entre modos
+        let currentMode = 'attraction'; // 'attraction' ou 'following'
+        let lastModeChange = 0;
+        let modeChangeInterval = 10000;
+        let transitionDuration = 2000;
+        let isTransitioning = false;
+        let transitionStartTime = 0;
+
+        // Lista completa de conceitos (incluindo "sonhos")
+        const allConcepts = [
+            "inteligência", "artificial", "não-fisiológico", "fisiológico", "sensorial", "racional",
+            "conceito", "ontologia", "episteme", "consciente", "não-consciente", "arquivo",
+            "memória", "arte", "especulação","sensível","reinventar","produzir",
+            "tempo","anacronia","assombra","vestígio","bio","tecno","não-bio","não-tecno",
+            "conjurar","extinção","continuidade","gaia","aceleração","problema",
+            "ficar-com","vida","morte","atemporal","registro","relato","experiência",
+            "pensamento","fóssil","confronto","transformação","invenção","onde","local","global",
+            "plantar","anomia","ruído","inferência","real","não-real","abstração","causa",
+            "efeito","afeto","ciência","objeto","malha","teia","sequência","aleatório","singular",
+            "objetivo","subjetivo","resíduo","durante","antes","depois","presença","ausência",
+            "sentidos","público","partitura","matemática","aqui","lá","ali","fronteira","espécie",
+            "interespécie","dobra","finito","não-finito","escala","vazio","não-vazio",
+            "espectralismo", "espectros", "perspectivismo", "anástrofe", "catástrofe", 
+            "presságio", "fabulação", "fora", "dentro", "passado", 
+            "futuro", "agora", "corpo", "mente", "algoritmo", "sonhos"
+        ];
+
+        function setup() {
+            canvasWidth = windowWidth;
+            canvasHeight = windowHeight;
+            createCanvas(canvasWidth, canvasHeight);
+            
+            // Detectar mobile
+            isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                      ('ontouchstart' in window) || 
+                      (navigator.maxTouchPoints > 0);
+            
+            // Inicializar posição virtual e alvo
+            virtualMouseX = canvasWidth / 2;
+            virtualMouseY = canvasHeight / 2;
+            targetX = random(0, canvasWidth);
+            targetY = random(0, canvasHeight);
+            
+            initializeConcepts();
+            
+            console.log("Iniciando no modo:", currentMode);
+            console.log("Conceito central inicial:", centerBox.text);
+        }
+
+        function initializeConcepts() {
+            conceptBoxes = [];
+            
+            // Escolher conceito inicial para o centro (começamos com "sonhos")
+            let centerConceptIndex = allConcepts.indexOf("sonhos");
+            let centerConceptText = allConcepts[centerConceptIndex];
+            
+            // Criar caixa central
+            centerBox = {
+                text: centerConceptText,
+                textSize: 14,
+                padding: 12,
+                cornerRadius: 8
+            };
+            
+            // Criar caixas conceituais com os conceitos restantes
+            let initialMarginX = canvasWidth * 0.05;
+            let initialMarginY = canvasHeight * 0.05;
+            
+            for (let i = 0; i < allConcepts.length; i++) {
+                if (i !== centerConceptIndex) { // Pular o conceito que está no centro
+                    conceptBoxes.push(createConceptBox(allConcepts[i], initialMarginX, initialMarginY));
+                }
+            }
+        }
+
+        function createConceptBox(conceptText, marginX, marginY) {
+            return {
+                x: random(marginX, canvasWidth - marginX),
+                y: random(marginY, canvasHeight - marginY),
+                text: conceptText,
+                
+                // Propriedades do modo atração (original)
+                offsetX: random(-50, 50),
+                offsetY: random(-50, 50),
+                attractionSpeed: random(0.007, 0.23),
+                offsetChangeInterval: random(5, 15) * 1000,
+                lastOffsetChange: millis(),
+                intervalChangeTime: random(1, 5) * 1000,
+                lastIntervalChange: millis(),
+                
+                // Propriedades do modo seguimento (segundo código)
+                followOffsetX: random(-100, 100),
+                followOffsetY: random(-100, 100),
+                followSpeed: random(0.01, 0.1),
+                followOffsetChangeInterval: random(5, 15) * 1000,
+                lastFollowOffsetChange: millis(),
+                followIntervalChangeTime: random(1, 5) * 1000,
+                lastFollowIntervalChange: millis(),
+                
+                // Propriedades visuais
+                textSize: 14,
+                padding: 12,
+                cornerRadius: 8
+            };
+        }
+
+        function rotateCenterConcept() {
+            // Adicionar conceito atual do centro de volta à lista
+            let currentCenterText = centerBox.text;
+            let referenceX = isMobile ? virtualMouseX : mouseX;
+            let referenceY = isMobile ? virtualMouseY : mouseY;
+            
+            let returnedConcept = createConceptBox(currentCenterText, canvasWidth * 0.05, canvasHeight * 0.05);
+            
+            // Posicionar o conceito que volta próximo ao mouse, mas não exatamente no centro
+            let angle = random(TWO_PI);
+            let distance = random(50, 150);
+            returnedConcept.x = referenceX + cos(angle) * distance;
+            returnedConcept.y = referenceY + sin(angle) * distance;
+            
+            // Garantir que fique dentro da tela
+            returnedConcept.x = constrain(returnedConcept.x, canvasWidth * 0.05, canvasWidth * 0.95);
+            returnedConcept.y = constrain(returnedConcept.y, canvasHeight * 0.05, canvasHeight * 0.95);
+            
+            conceptBoxes.push(returnedConcept);
+            
+            // Escolher novo conceito para o centro
+            let randomIndex = Math.floor(random(conceptBoxes.length));
+            let newCenterConcept = conceptBoxes[randomIndex];
+            
+            // Atualizar caixa central
+            centerBox.text = newCenterConcept.text;
+            
+            // Remover o conceito escolhido da lista
+            conceptBoxes.splice(randomIndex, 1);
+            
+            console.log("Rotação: '" + currentCenterText + "' saiu do centro, '" + centerBox.text + "' entrou no centro");
+        }
+
+        function disperseBoxes() {
+            let referenceX = isMobile ? virtualMouseX : mouseX;
+            let referenceY = isMobile ? virtualMouseY : mouseY;
+            
+            for (let concept of conceptBoxes) {
+                // Calculate angle from reference point to current concept position
+                let angle = atan2(concept.y - referenceY, concept.x - referenceX);
+                
+                // If concept is too close to center, give it a random angle
+                let distance = dist(concept.x, concept.y, referenceX, referenceY);
+                if (distance < 50) {
+                    angle = random(TWO_PI);
+                }
+                
+                // Calculate new position 350px away in that direction
+                let newX = referenceX + cos(angle) * 350;
+                let newY = referenceY + sin(angle) * 350;
+                
+                // Keep within canvas bounds with margin
+                let margin = 50;
+                newX = constrain(newX, margin, canvasWidth - margin);
+                newY = constrain(newY, margin, canvasHeight - margin);
+                
+                // Set new position
+                concept.x = newX;
+                concept.y = newY;
+                
+                // Update offsets for both modes based on new position
+                concept.offsetX = newX - referenceX;
+                concept.offsetY = newY - referenceY;
+                concept.followOffsetX = newX - referenceX;
+                concept.followOffsetY = newY - referenceY;
+                
+                // Reset timers to prevent immediate repositioning
+                let currentTime = millis();
+                concept.lastOffsetChange = currentTime;
+                concept.lastIntervalChange = currentTime;
+                concept.lastFollowOffsetChange = currentTime;
+                concept.lastFollowIntervalChange = currentTime;
+            }
+            
+            console.log("Caixas dispersadas!");
+        }
+
+        function updateVirtualMouse() {
+            let currentTime = millis();
+            
+            // Mudar velocidade mais lentamente
+            if (currentTime - lastSpeedChange >= speedChangeInterval) {
+                targetSpeed = random(0.001, 0.004); // Muito mais lento
+                lastSpeedChange = currentTime;
+                speedChangeInterval = random(3000, 8000);
+            }
+            
+            // Suavizar mudança de velocidade
+            currentSpeed = lerp(currentSpeed, targetSpeed, 0.03);
+            
+            // Movimento principalmente baseado na deriva
+            wanderAngle += random(-wanderSpeed, wanderSpeed);
+            
+            // Sempre ter uma leve influência do alvo para criar direcionamento
+            let distanceToTarget = dist(virtualMouseX, virtualMouseY, targetX, targetY);
+            let targetInfluence = map(distanceToTarget, 0, 300, 0.0005, 0.004); // Mais lento
+            
+            // Movimento principal: deriva + atração ao alvo
+            let moveX = cos(wanderAngle) * (currentSpeed * 800) + (targetX - virtualMouseX) * targetInfluence;
+            let moveY = sin(wanderAngle) * (currentSpeed * 800) + (targetY - virtualMouseY) * targetInfluence;
+            
+            let newX = virtualMouseX + moveX;
+            let newY = virtualMouseY + moveY;
+            
+            // Mouse virtual usa toda a tela (sem margens)
+            newX = constrain(newX, 0, canvasWidth);
+            newY = constrain(newY, 0, canvasHeight);
+            
+            // Se bateu na borda, escolher novo alvo no centro
+            if (newX <= 0 || newX >= canvasWidth || 
+                newY <= 0 || newY >= canvasHeight) {
+                let centerX = canvasWidth * 0.5;
+                let centerY = canvasHeight * 0.5;
+                targetX = random(centerX - 100, centerX + 100);
+                targetY = random(centerY - 100, centerY + 100);
+                wanderAngle = random(TWO_PI);
+            }
+            
+            virtualMouseX = newX;
+            virtualMouseY = newY;
+            
+            // SEMPRE trocar de alvo quando chegar perto
+            if (distanceToTarget < 60) {
+                targetX = random(0, canvasWidth);
+                targetY = random(0, canvasHeight);
+            }
+            
+            // Também trocar alvo ocasionalmente
+            if (random() < 0.0008) {
+                targetX = random(0, canvasWidth);
+                targetY = random(0, canvasHeight);
+            }
+        }
+
+        function updateModeSystem() {
+            let currentTime = millis();
+            
+            // Verificar se é hora de mudar de modo
+            if (currentTime - lastModeChange >= modeChangeInterval && !isTransitioning) {
+                // Iniciar transição
+                isTransitioning = true;
+                transitionStartTime = currentTime;
+                
+                // Usar mouse real ou virtual para calcular novos offsets
+                let referenceX = isMobile ? virtualMouseX : mouseX;
+                let referenceY = isMobile ? virtualMouseY : mouseY;
+                
+                // Alternar modo e preparar conceitos para o novo modo
+                if (currentMode === 'attraction') {
+                    currentMode = 'following';
+                    modeChangeInterval = random(7000, 21000);
+                    
+                    // Preparar conceitos para modo seguimento
+                    for (let concept of conceptBoxes) {
+                        concept.followOffsetX = concept.x - referenceX;
+                        concept.followOffsetY = concept.y - referenceY;
+                        
+                        // Garantir distância mínima de 25px
+                        let distance = sqrt(concept.followOffsetX * concept.followOffsetX + concept.followOffsetY * concept.followOffsetY);
+                        if (distance < 25) {
+                            let angle = atan2(concept.followOffsetY, concept.followOffsetX);
+                            concept.followOffsetX = cos(angle) * 25;
+                            concept.followOffsetY = sin(angle) * 25;
+                        }
+                        
+                        // Reset timers do modo seguimento
+                        concept.lastFollowOffsetChange = currentTime;
+                        concept.lastFollowIntervalChange = currentTime;
+                    }
+                } else {
+                    currentMode = 'attraction';
+                    modeChangeInterval = random(7000, 37000);
+                    
+                    // Preparar conceitos para modo atração
+                    for (let concept of conceptBoxes) {
+                        // Calcular offset baseado na posição atual para suavizar transição
+                        concept.offsetX = concept.x - referenceX;
+                        concept.offsetY = concept.y - referenceY;
+                        
+                        // Reset timers do modo atração
+                        concept.lastOffsetChange = currentTime;
+                        concept.lastIntervalChange = currentTime;
+                    }
+                }
+                
+                console.log("Mudando para modo:", currentMode, "por", modeChangeInterval/1000, "segundos");
+                lastModeChange = currentTime;
+            }
+            
+            // Finalizar transição
+            if (isTransitioning && currentTime - transitionStartTime >= transitionDuration) {
+                isTransitioning = false;
+            }
+        }
+
+        function updateAttractionMode(concept, referenceX, referenceY, currentTime) {
+            // Sistema original de mudança de intervalos
+            if (currentTime - concept.lastIntervalChange >= concept.intervalChangeTime) {
+                concept.offsetChangeInterval = random(5, 15) * 1000;
+                concept.lastIntervalChange = currentTime;
+                concept.intervalChangeTime = random(1, 10) * 1000;
+            }
+            
+            // Sistema original de mudança de offsets (teleportação)
+            if (!isTransitioning && currentTime - concept.lastOffsetChange >= concept.offsetChangeInterval) {
+                let marginX = canvasWidth * 0.05;
+                let marginY = canvasHeight * 0.05;
+                
+                let targetX = random(marginX, canvasWidth - marginX);
+                let targetY = random(marginY, canvasHeight - marginY);
+                
+                concept.offsetX = targetX - referenceX;
+                concept.offsetY = targetY - referenceY;
+                
+                concept.x = targetX;
+                concept.y = targetY;
+                
+                concept.lastOffsetChange = currentTime;
+            }
+            
+            // Sistema original de atração
+            let distanceFromReference = dist(concept.x, concept.y, referenceX, referenceY);
+            
+            if (distanceFromReference <= RanDist) {
+                concept.x = lerp(concept.x, referenceX, concept.attractionSpeed);
+                concept.y = lerp(concept.y, referenceY, concept.attractionSpeed);
+            }
+        }
+
+        function updateFollowingMode(concept, referenceX, referenceY, currentTime) {
+            // Sistema do segundo código - mudança de intervalos
+            if (currentTime - concept.lastFollowIntervalChange >= concept.followIntervalChangeTime) {
+                concept.followOffsetChangeInterval = random(5, 15) * 1000;
+                concept.lastFollowIntervalChange = currentTime;
+                concept.followIntervalChangeTime = random(1, 5) * 1000;
+            }
+            
+            // Sistema do segundo código - mudança de offsets
+            if (currentTime - concept.lastFollowOffsetChange >= concept.followOffsetChangeInterval) {
+                let newOffsetX, newOffsetY, distance;
+                let attempts = 0;
+                
+                do {
+                    if (random() < 0.7) {
+                        // Perto do mouse (dentro de ~150px de raio)
+                        let angle = random(TWO_PI);
+                        let radius = random(30, 150);
+                        newOffsetX = cos(angle) * radius;
+                        newOffsetY = sin(angle) * radius;
+                    } else {
+                        // Mais longe do mouse (pode estar em qualquer lugar no canvas)
+                        let angle = random(TWO_PI);
+                        let maxRadius = min(
+                            sqrt(referenceX * referenceX + referenceY * referenceY),
+                            sqrt((canvasWidth - referenceX) * (canvasWidth - referenceX) + referenceY * referenceY),
+                            sqrt(referenceX * referenceX + (canvasHeight - referenceY) * (canvasHeight - referenceY)),
+                            sqrt((canvasWidth - referenceX) * (canvasWidth - referenceX) + (canvasHeight - referenceY) * (canvasHeight - referenceY))
+                        );
+                        let radius = random(25, maxRadius);
+                        newOffsetX = cos(angle) * radius;
+                        newOffsetY = sin(angle) * radius;
+                    }
+                    
+                    // Garante que a posição alvo fique dentro dos limites do canvas
+                    let targetX = referenceX + newOffsetX;
+                    let targetY = referenceY + newOffsetY;
+                    
+                    if (targetX < 0) newOffsetX = -referenceX + 5;
+                    if (targetX > canvasWidth) newOffsetX = canvasWidth - referenceX - 5;
+                    if (targetY < 0) newOffsetY = -referenceY + 5;
+                    if (targetY > canvasHeight) newOffsetY = canvasHeight - referenceY - 5;
+                    
+                    distance = sqrt(newOffsetX * newOffsetX + newOffsetY * newOffsetY);
+                    attempts++;
+                    
+                    if (attempts > 50) {
+                        let angle = random(TWO_PI);
+                        newOffsetX = cos(angle) * 80;
+                        newOffsetY = sin(angle) * 80;
+                        distance = 80;
+                    }
+                } while (distance < 25 && attempts < 50);
+                
+                concept.followOffsetX = newOffsetX;
+                concept.followOffsetY = newOffsetY;
+                
+                // Teleporta instantaneamente para a nova posição
+                concept.x = referenceX + concept.followOffsetX;
+                concept.y = referenceY + concept.followOffsetY;
+                
+                concept.lastFollowOffsetChange = currentTime;
+            }
+            
+            // Calcula posição alvo (mouse + offset)
+            let targetX = referenceX + concept.followOffsetX;
+            let targetY = referenceY + concept.followOffsetY;
+            
+            // Verifica se o alvo está dentro da zona de exclusão (25px de raio)
+            let distanceToMouse = dist(targetX, targetY, referenceX, referenceY);
+            
+            if (distanceToMouse < 25) {
+                // Empurra o conceito para fora do raio de 25px
+                let angle = atan2(targetY - referenceY, targetX - referenceX);
+                targetX = referenceX + cos(angle) * 25;
+                targetY = referenceY + sin(angle) * 25;
+            }
+            
+            // Movimento suave em direção ao alvo
+            concept.x = lerp(concept.x, targetX, concept.followSpeed);
+            concept.y = lerp(concept.y, targetY, concept.followSpeed);
+        }
+
+        function drawConceptBox(box, x, y) {
+            // Configurar texto para medir dimensões
+            textSize(box.textSize);
+            textFont('Courier New');
+            
+            let textW = textWidth(box.text);
+            let boxWidth = textW + box.padding * 2;
+            let boxHeight = box.textSize + box.padding * 2;
+            
+            // Desenhar borda branca
+            stroke(255);
+            strokeWeight(1);
+            noFill();
+            rect(x - boxWidth/2, y - boxHeight/2, boxWidth, boxHeight, box.cornerRadius);
+            
+            // Desenhar texto
+            fill(255);
+            noStroke();
+            textAlign(CENTER, CENTER);
+            text(box.text, x, y);
+        }
+
+        function windowResized() {
+            canvasWidth = windowWidth;
+            canvasHeight = windowHeight;
+            resizeCanvas(canvasWidth, canvasHeight);
+            
+            // Reajustar alvos para nova tela
+            if (isMobile) {
+                targetX = constrain(targetX, 0, canvasWidth);
+                targetY = constrain(targetY, 0, canvasHeight);
+            }
+        }
+
+        function draw() {
+            background(26, 26, 46);
+            
+            let currentTime = millis();
+            
+            // Atualizar sistema de modos
+            updateModeSystem();
+            
+            // Atualizar posição virtual em mobile
+            if (isMobile) {
+                updateVirtualMouse();
+            }
+            
+            // Usar mouse real ou virtual
+            let referenceX = isMobile ? virtualMouseX : mouseX;
+            let referenceY = isMobile ? virtualMouseY : mouseY;
+            
+            // Mudança da RanDist apenas no modo atração
+            if (currentMode === 'attraction' && currentTime - lastRanDistChange >= ranDistChangeInterval) {
+                let randx = random();
+                if (randx < 0.15) {
+                    RanDist = Math.round(random(33, 333));
+                } else {
+                    RanDist = Math.round(random(33, 88));
+                }
+                lastRanDistChange = currentTime;
+                ranDistChangeInterval = random(1000, 13000);
+                console.log("RanDist mudou para:", RanDist);
+            }
+            
+            // Atualizar e desenhar conceitos
+            for (let concept of conceptBoxes) {
+                if (currentMode === 'attraction') {
+                    updateAttractionMode(concept, referenceX, referenceY, currentTime);
+                } else {
+                    updateFollowingMode(concept, referenceX, referenceY, currentTime);
+                }
+                
+                drawConceptBox(concept, concept.x, concept.y);
+            }
+            
+            // Desenhar conceito central sempre no centro do mouse
+            drawConceptBox(centerBox, referenceX, referenceY);
+        }
+
+        // Rotacionar conceito central ao clicar o mouse (botão esquerdo)
+        function mousePressed() {
+            if (mouseButton === LEFT) {
+                // Rotacionar conceito do centro
+                rotateCenterConcept();
+                
+                // Reset de timers (comportamento original)
+                if (!isMobile) {
+                    for (let concept of conceptBoxes) {
+                        concept.lastOffsetChange = millis();
+                        concept.lastIntervalChange = millis();
+                        concept.lastFollowOffsetChange = millis();
+                        concept.lastFollowIntervalChange = millis();
+                    }
+                }
+            } else if (mouseButton === RIGHT) {
+                // Dispersar caixas com botão direito
+                disperseBoxes();
+                
+                // Prevenir menu de contexto
+                return false;
+            }
+        }
+
+        // Para mobile: simular clique com toque
+        function touchStarted() {
+            rotateCenterConcept();
+            return false; // Prevenir comportamento padrão
+        }
+
+        // Prevenir menu de contexto do botão direito
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
