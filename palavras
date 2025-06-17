@@ -184,45 +184,52 @@
         function disperseBoxes() {
             let referenceX = isMobile ? virtualMouseX : mouseX;
             let referenceY = isMobile ? virtualMouseY : mouseY;
+            let dispersedCount = 0; // Para contar quantas caixas foram dispersadas
             
             for (let concept of conceptBoxes) {
-                // Calculate angle from reference point to current concept position
-                let angle = atan2(concept.y - referenceY, concept.x - referenceX);
-                
-                // If concept is too close to center, give it a random angle
+                // Verificar se a caixa está dentro de 45px do mouse
                 let distance = dist(concept.x, concept.y, referenceX, referenceY);
-                if (distance < 50) {
-                    angle = random(TWO_PI);
+                
+                if (distance <= 150) {
+                    // Calculate angle from reference point to current concept position
+                    let angle = atan2(concept.y - referenceY, concept.x - referenceX);
+                    
+                    // If concept is too close to center, give it a random angle
+                    if (distance < 155) {
+                        angle = random(TWO_PI);
+                    }
+                    
+                    // Calculate new position 350px away in that direction
+                    let newX = referenceX + cos(angle) * 200;
+                    let newY = referenceY + sin(angle) * 200;
+                    
+                    // Keep within canvas bounds with margin
+                    let margin = 50;
+                    newX = constrain(newX, margin, canvasWidth - margin);
+                    newY = constrain(newY, margin, canvasHeight - margin);
+                    
+                    // Set new position
+                    concept.x = newX;
+                    concept.y = newY;
+                    
+                    // Update offsets for both modes based on new position
+                    concept.offsetX = newX - referenceX;
+                    concept.offsetY = newY - referenceY;
+                    concept.followOffsetX = newX - referenceX;
+                    concept.followOffsetY = newY - referenceY;
+                    
+                    // Reset timers to prevent immediate repositioning
+                    let currentTime = millis();
+                    concept.lastOffsetChange = currentTime;
+                    concept.lastIntervalChange = currentTime;
+                    concept.lastFollowOffsetChange = currentTime;
+                    concept.lastFollowIntervalChange = currentTime;
+                    
+                    dispersedCount++;
                 }
-                
-                // Calculate new position 350px away in that direction
-                let newX = referenceX + cos(angle) * 350;
-                let newY = referenceY + sin(angle) * 350;
-                
-                // Keep within canvas bounds with margin
-                let margin = 50;
-                newX = constrain(newX, margin, canvasWidth - margin);
-                newY = constrain(newY, margin, canvasHeight - margin);
-                
-                // Set new position
-                concept.x = newX;
-                concept.y = newY;
-                
-                // Update offsets for both modes based on new position
-                concept.offsetX = newX - referenceX;
-                concept.offsetY = newY - referenceY;
-                concept.followOffsetX = newX - referenceX;
-                concept.followOffsetY = newY - referenceY;
-                
-                // Reset timers to prevent immediate repositioning
-                let currentTime = millis();
-                concept.lastOffsetChange = currentTime;
-                concept.lastIntervalChange = currentTime;
-                concept.lastFollowOffsetChange = currentTime;
-                concept.lastFollowIntervalChange = currentTime;
             }
-            
-            console.log("Caixas dispersadas!");
+
+        console.log("Caixas dispersadas:", dispersedCount, "de", conceptBoxes.length);
         }
 
         function updateVirtualMouse() {
