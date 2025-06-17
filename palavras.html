@@ -182,6 +182,7 @@
         }
 
         function disperseBoxes() {
+            let disprand = random(180,400);
             let referenceX = isMobile ? virtualMouseX : mouseX;
             let referenceY = isMobile ? virtualMouseY : mouseY;
             let dispersedCount = 0; // Para contar quantas caixas foram dispersadas
@@ -200,8 +201,8 @@
                     }
                     
                     // Calculate new position 350px away in that direction
-                    let newX = referenceX + cos(angle) * 200;
-                    let newY = referenceY + sin(angle) * 200;
+                    let newX = referenceX + cos(angle) * disprand;
+                    let newY = referenceY + sin(angle) * disprand;
                     
                     // Keep within canvas bounds with margin
                     let margin = 50;
